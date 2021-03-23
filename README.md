@@ -6,3 +6,5 @@ This is my pretty simple Awesome setup, very minimal as far as features but I ha
 I went with the nord cholorscheme, and have found that any blueish wallpaper looks nice with it!
 
 This is done with the stable branch of Awesome. I have only tested it on Fedora, but it should work on every distro that Awesome is available for!
+
+The widgets config is adapted from the ArcoLinux default AwesomeWM config
