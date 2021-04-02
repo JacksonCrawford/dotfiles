@@ -17,10 +17,19 @@ local math, string, os = math, string, os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
-theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/simpleblue"
-theme.wallpaper                                 = "~/Pictures/wallpapers/mountains2.jpg"
-theme.font                                      = "Futura 12"
+theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/ethereal"
+theme.wallpaper                                 = "~/Pictures/wallpapers/rockIslandsF.jpg"
+theme.font                                      = "Icomoon 13"
 theme.taglist_font                              = "Microns 13"
+theme.mint					= "#ACDABD"
+theme.lg					= "#d9d9d9"
+theme.navy					= "#43566c"
+theme.ln					= "#96B1CF"
+theme.yellow					= "#d9df8d"
+theme.purple					= "#d98eda"
+theme.green					= "#6ED6A5"
+theme.cotton					= "#7AF7F7"
+theme.orange					= "#F3BB72"
 theme.nord0					= "#2e3340"
 theme.nord1					= "#3b4252"
 theme.nord2					= "#434c5e"
@@ -44,12 +53,12 @@ theme.fg_urgent                                 = "#b74822"
 theme.bg_normal                                 = "#1C00ff00"
 theme.bg_focus                                  = theme.nord0
 theme.bg_urgent                                 = "#3F3F3F"
-theme.taglist_fg_focus                          = theme.frost1
+theme.taglist_fg_focus                          = theme.mint
 theme.tasklist_bg_focus                         = "#000000"
 theme.tasklist_fg_focus                         = theme.nord1
 theme.border_width                              = 2
-theme.border_normal                             = theme.nord1
-theme.border_focus                              = theme.color3
+theme.border_normal                             = theme.navy
+theme.border_focus                              = theme.mint
 theme.border_marked                             = theme.color0
 theme.titlebar_bg_focus                         = "#3F3F3F"
 theme.titlebar_bg_normal                        = "#3F3F3F"
@@ -136,8 +145,8 @@ theme.cal = lain.widget.cal({
     attach_to = { clock },
     notification_preset = {
         font = "Futura 12",
-        fg   = theme.frost0,
-        bg   = theme.nord0,
+        fg   = theme.cotton,
+        bg   = theme.navy,
     }
 })
 
@@ -177,7 +186,7 @@ theme.mail = lain.widget.imap({
 -- ALSA volume
 theme.volume = lain.widget.alsabar({
     --togglechannel = "IEC958,3",
-    notification_preset = { font = theme.font, fg = theme.frost0 },
+    notification_preset = { font = theme.font, fg = theme.cotton },
 })
 
 -- MPD
@@ -205,7 +214,7 @@ theme.mpd = lain.widget.mpd({
             artist = " " .. mpd_now.artist .. " "
             title  = mpd_now.title  .. " "
             mpdicon:set_image(theme.widget_music_on)
-            widget:set_markup(markup.font(theme.font, markup(theme.nord0, artist) .. " " .. title))
+            widget:set_markup(markup.font(theme.font, markup(theme.navy, artist) .. " " .. title))
         elseif mpd_now.state == "pause" then
             widget:set_markup(markup.font(theme.font, " mpd paused "))
             mpdicon:set_image(theme.widget_music_pause)
@@ -260,7 +269,7 @@ theme.weather = lain.widget.weather({
     settings = function()
         descr = weather_now["weather"][1]["description"]:lower()
         units = math.floor(weather_now["main"]["temp"])
-        widget:set_markup(markup.fontfg(theme.font, "#ffffff", descr .. " " .. units .. "°F "))
+        widget:set_markup(markup.fontfg(theme.font, theme.orange, descr .. " " .. units .. "°F "))
     end
 })
 
@@ -347,9 +356,10 @@ function theme.powerline_rl(cr, width, height)
     cr:close_path()
 end
 
+
 local bar
 
-occupiedColors = {"#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D"}
+occupiedColors = {"#D7822D", "#6ED6A5", "#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D"}
 
 -- Helper function that updates a taglist item
 local update_taglist = function (item, tag, index)
@@ -439,12 +449,30 @@ function theme.at_screen_connect(s)
         },
     }
 
+
     -- Create a tasklist widget
     --s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 20, bg = theme.nord0, fg = theme.fg_normal, shape = gears.shape.rectangle })
-
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 20, bg = theme.navy, fg = theme.fg_normal, shape = gears.shape.rectangle })
+	
+    local arro = wibox.widget {{
+	layout = wibox.layout.align.horizontal,
+	expand = "none",
+	{
+	    {
+		layout = wibox.layout.fixed.horizontal,
+		spacing = 2,
+	    },
+	    left = 4,
+	    right = 5,
+	    widget = wibox.container.margin,
+    	    },
+	},
+	shape = gears.shape.powerline,
+	bg = theme.lg,
+	widget = wibox.container.background,
+    }
 
     local clock = wibox.widget {{
         layout = wibox.layout.align.horizontal,
@@ -461,7 +489,8 @@ function theme.at_screen_connect(s)
             },
         },
         shape = gears.shape.rectangle,
-        bg = theme.nord2,
+        bg = "alpha",
+	fg = theme.purple,
         widget = wibox.container.background,
     }
 
@@ -479,7 +508,8 @@ function theme.at_screen_connect(s)
             },
         },
         shape = gears.shape.rectangle,
-        bg = theme.nord1,
+        bg = "alpha",
+	fg = theme.ln,
         widget = wibox.container.background,
     }
 
@@ -570,7 +600,8 @@ function theme.at_screen_connect(s)
             },
         },
         shape = gears.shape.rectangle,
-        bg = theme.nord1,
+        bg = "alpha",
+	fg = theme.orange,
         widget = wibox.container.background
     }
 
@@ -610,7 +641,8 @@ function theme.at_screen_connect(s)
             },
         },
         shape = gears.shape.rectangle,
-        bg = theme.nord3,
+        bg = "alpha",
+	fg = theme.green,
         widget = wibox.container.background
     }
 
@@ -630,7 +662,8 @@ function theme.at_screen_connect(s)
             },
         },
         shape = gears.shape.rectangle,
-        bg = theme.nord2,
+        bg = "#alpha",
+	fg = theme.yellow,
 	widget = wibox.container.background
     }
 
@@ -670,68 +703,46 @@ function theme.at_screen_connect(s)
         },
         },
         shape = gears.shape.rounded_rect,
-        bg = theme.nord3,
+        bg = "alpha",
+	fg = theme.cotton,
         widget = wibox.container.background,
     }
---[[
-    local batWidget = wibox.widget {{
-	layout = wibox.layout.align.horizontal,
-	expand = "none",
-	{
-	    {
-		layout = wibox.layout.fixed.horizontal,
-		spacing = 5,
-		baticon,
-		bat,
-		theme.widget_battery,
-	    },
-	    left = 5,
-	    right = 5,
-	    widget = wibox.container.margin,
-	},
-	},
-	shape = gears.shape.rectangle,
-	bg = theme.snow2,
-	wiget = wibox.container.background,
-    }]]--
-
-
-    --[[local workspaces = wibox.widget {{
-	layout = wibox.layout.align.horizontal,
-	expand = "none",
-	{
-	    {
-		layout = wibox.layout.fixed.horizontal,
-		s.mytaglist,
-	    },
-	    left = 5,
-	    right = 5,
-	    widget = wibox.container.margin,
-    	},
-        shape = gears.shapre.rounded_bar,
-        bg = theme.color0,
-        widget = wibox.container.margin
-    }]]--
-
+    
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             s.mypromptbox,
-	    bat,
+	    taglist,
+	    spacer,
+	    arro,
+	    spacer,
+	    clock,
+	    spacer,
+	    arro,
+	    spacer,
+	    weather,
+	    spacer,
+	    arro,
+	    spacer,
 	    cpu,
+	    spacer,
+	    arro,
+	    spacer,
 	    ram,
+	    spacer,
+	    arro,
+	    spacer,
+	    volume,
+	    spacer,
+	    arro,
 	    bigSpacer,
         },
-	{ -- Middle widgets
+	{
             layout = wibox.layout.fixed.horizontal,
-            taglist,
-	    clock,
-	    volume
 	},
         { -- Right widgets
-	    weather,
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             s.mylayoutbox,

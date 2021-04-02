@@ -56,11 +56,12 @@ run_once({ "unclutter -root" }) -- entries must be comma-separated
 local themes = {
     "simple",         -- 1
     "simpleblue",     -- 2
-    "simplegreen"     -- 3
+    "simplegreen",    -- 3
+    "ethereal"	      -- 4
 }
 
 -- choose your theme here
-local chosen_theme = themes[2]
+local chosen_theme = themes[4]
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
 
@@ -290,6 +291,8 @@ globalkeys = my_table.join(
     -- My applications (Super+Alt+Key)
     awful.key({ modkey }, "b", function () awful.spawn( browser ) end,
         {description = "firefox web browser" , group = "gui apps" }),
+    awful.key({ modkey }, "u", function () awful.spawn("xdg-open https://usfca.instructure.com/") end,
+        {description = "launch USF canvas", group = hotkeys}),
     awful.key({ modkey, altkey }, "e", function () awful.util.spawn( "emacsclient -a 'emacs' -c" ) end,
         {description = "emacs client" , group = "gui apps" }),
     awful.key({ modkey }, "f", function () awful.spawn( filemanager ) end,
@@ -419,7 +422,7 @@ globalkeys = my_table.join(
               {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey }, ",", function () awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
+    awful.key({ modkey, "Shift" }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey1,           }, "Tab",
         function ()
