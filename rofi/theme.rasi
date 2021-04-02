@@ -1,7 +1,7 @@
 * {
-    bg: #2e3440;
-    fg: #d3c6aa;
-    selected: #d8dee9;
+    bg: #43566c;
+    fg: #d9d9d9;
+    selected: #acdabd;
     urgent: #e67e80;
     alternate-bg: #4b595c;
     alternate-selected: #83c092;
