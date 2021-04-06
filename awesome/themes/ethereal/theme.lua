@@ -1,7 +1,7 @@
 --[[
 
      Simple Awesome WM theme
-     Nord colorscheme
+     Ethereal colorscheme
 
      Adapted from:
      github.com/lcpz
@@ -18,44 +18,37 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/ethereal"
-theme.wallpaper                                 = "~/Pictures/wallpapers/rockIslandsF.jpg"
-theme.font                                      = "Icomoon 13"
+theme.wallpaper                                 = "~/Pictures/wallpapers/mountainsF.jpg"
+theme.font                                      = "Icomoon 12"
 theme.taglist_font                              = "Microns 13"
-theme.mint					= "#ACDABD"
+theme.mint					= "#acdabd"
+theme.dmint					= "#65a97e"
 theme.lg					= "#d9d9d9"
 theme.navy					= "#43566c"
+theme.lightNavy					= "#7B97B5"
 theme.ln					= "#96B1CF"
 theme.yellow					= "#d9df8d"
 theme.purple					= "#d98eda"
 theme.green					= "#6ED6A5"
 theme.cotton					= "#7AF7F7"
 theme.orange					= "#F3BB72"
-theme.nord0					= "#2e3340"
-theme.nord1					= "#3b4252"
-theme.nord2					= "#434c5e"
-theme.nord3					= "#4c566a"
-theme.snow0					= "#dbdee9"
-theme.snow1					= "#e5e9f0"
-theme.snow2					= "#eceff4"
-theme.frost0					= "#8fbcbb"
-theme.frost1					= "#88c0d0"
-theme.frost2					= "#81a1c1"
-theme.frost3					= "#5e81ac"
---theme.color0 = "#88bff8"
-theme.color0 = "#2e3440"
---theme.color1 = "#2D2D2D"
-theme.color1 = "alpha"
-theme.color2 = "#6f5b5a"
-theme.color3 = "#4c566a"
+theme.red					= "#F65757"
+theme.dg					= "#4d4d4d"
+theme.color0					= "#2e3440"
+theme.color1					= "alpha"
+theme.color2					= "#6f5b5a"
+theme.color3					= "#4c566a"
 theme.fg_normal                                 = "#d8dee9"
-theme.fg_focus                                  = theme.nord0
-theme.fg_urgent                                 = "#b74822"
+theme.fg_focus                                  = theme.mint
+theme.fg_urgent                                 = theme.purple
 theme.bg_normal                                 = "#1C00ff00"
-theme.bg_focus                                  = theme.nord0
-theme.bg_urgent                                 = "#3F3F3F"
+theme.bg_focus                                  = theme.navy
+theme.bg_urgent                                 = "alpha"
 theme.taglist_fg_focus                          = theme.mint
+theme.taglist_default				= theme.ln..85
+theme.taglist_fg_occupied			= theme.ln
 theme.tasklist_bg_focus                         = "#000000"
-theme.tasklist_fg_focus                         = theme.nord1
+theme.tasklist_fg_focus                         = "alpha"
 theme.border_width                              = 2
 theme.border_normal                             = theme.navy
 theme.border_focus                              = theme.mint
@@ -69,8 +62,8 @@ theme.menu_height                               = 20
 theme.menu_width                                = 140
 theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
 theme.awesome_icon                              = theme.dir .. "/icons/awesome.png"
-theme.taglist_squares_sel                       = theme.dir .. "/icons/square_sel.png"
-theme.taglist_squares_unsel                     = theme.dir .. "/icons/square_unsel.png"
+theme.taglist_squares_sel                       = theme.dir .. "/icons/emptySquareSel.png"
+theme.taglist_squares_unsel                     = theme.dir .. "/icons/emptySquareUnsel.png"
 theme.layout_tile                               = theme.dir .. "/icons/tile.png"
 theme.layout_tileleft                           = theme.dir .. "/icons/tileleft.png"
 theme.layout_tilebottom                         = theme.dir .. "/icons/tilebottom.png"
@@ -140,12 +133,18 @@ local clock = awful.widget.watch(
     end
 )
 
+local clockIcon = wibox.widget {
+	text = "",
+	font = "Icomoon 12",
+	widget = wibox.widget.textbox
+}
+
 -- Calendar
 theme.cal = lain.widget.cal({
     attach_to = { clock },
     notification_preset = {
         font = "Futura 12",
-        fg   = theme.cotton,
+        fg   = theme.purple,
         bg   = theme.navy,
     }
 })
@@ -233,6 +232,12 @@ local mem = lain.widget.mem({
     end
 })
 
+local memIcon = wibox.widget {
+	text = "",
+	font = "Icomoon 12",
+	widget = wibox.widget.textbox
+}
+
 -- CPU
 local cpuicon = wibox.widget.imagebox(theme.widget_cpu)
 local cpu = lain.widget.cpu({
@@ -241,16 +246,12 @@ local cpu = lain.widget.cpu({
     end
 })
 
---[[ Coretemp (lm_sensors, per core)
-local tempwidget = awful.widget.watch({awful.util.shell, '-c', 'sensors | grep Core'}, 30,
-function(widget, stdout)
-    local temps = ""
-    for line in stdout:gmatch("[^\r\n]+") do
-        temps = temps .. line:match("+(%d+).*°C")  .. "° " -- in Celsius
-    end
-    widget:set_markup(markup.font(theme.font, " " .. temps))
-end)
---]]
+local cpuIcon = wibox.widget {
+	text = "",
+	font = "Icomoon 12",
+	widget = wibox.widget.textbox
+}
+
 -- Coretemp (lain, average)
 local temp = lain.widget.temp({
     settings = function()
@@ -259,6 +260,12 @@ local temp = lain.widget.temp({
 })
 --]]
 local tempicon = wibox.widget.imagebox(theme.widget_temp)
+
+local tempIcon = wibox.widget {
+	text="",
+	font="Icomoon 12",
+	widget=wibox.widget.textbox
+}
 
 local weathericon = wibox.widget.imagebox(theme.widget_weather)
 theme.weather = lain.widget.weather({
@@ -273,16 +280,11 @@ theme.weather = lain.widget.weather({
     end
 })
 
---[[ / fs
-local fsicon = wibox.widget.imagebox(theme.widget_hdd)
-theme.fs = lain.widget.fs({
-    notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Noto Sans Mono Medium 10" },
-    settings = function()
-        local fsp = string.format(" %3.2f %s ", fs_now["/"].free, fs_now["/"].units)
-        widget:set_markup(markup.font(theme.font, fsp))
-    end
-})
---]]
+local weatherIcon = wibox.widget {
+	text="",
+	font="Icomoon 12",
+	widget=wibox.widget.textbox
+}
 
 -- Battery
 local baticon = wibox.widget.imagebox(theme.widget_battery)
@@ -308,6 +310,12 @@ local bat = lain.widget.bat({
     end
 })
 
+local volMute = wibox.widget {
+	text = "",
+	font = theme.font,
+	widget = wibox.widget.textbox
+}
+
 -- ALSA volume
 local volicon = wibox.widget.imagebox(theme.widget_vol)
 theme.volume = lain.widget.alsa({
@@ -325,6 +333,13 @@ theme.volume = lain.widget.alsa({
         widget:set_markup(markup.font(theme.font, " " .. volume_now.level .. "% "))
     end
 })
+
+-- Fixed volume
+local volIcon = wibox.widget {
+	text="",
+	font="Icomoon 12",
+	widget = wibox.widget.textbox
+}
 
 -- Net
 local neticon = wibox.widget.imagebox(theme.widget_net)
@@ -442,20 +457,44 @@ function theme.at_screen_connect(s)
         screen = s,
         filter = awful.widget.taglist.filter.all,
         buttons = taglist_buttons,
+--	taglist_bg_occupied = theme.cotton,
         layout = {
-            spacing = 2,
+            spacing = 1,
             shape = gears.shape.circle,
             layout = wibox.layout.fixed.horizontal
         },
     }
 
+    -- Create a taglist for every screen
+--[[    s.newtaglist = awful.widget.taglist {
+          screen  = s,
+          filter  = awful.widget.taglist.filter.all,
+          buttons = taglist_buttons,
+          layout = wibox.layout.flex.horizontal,
+          widget_template = {
+              widget = wibox.container.background,
+              create_callback = function(self, tag, index, _)
+                  update_taglist(self, tag, index)
+              end,
+              update_callback = function(self, tag, index, _)
+                  update_taglist(self, tag, index)
+              end,
+          }
+      }]]--
 
     -- Create a tasklist widget
     --s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = 20, bg = theme.navy, fg = theme.fg_normal, shape = gears.shape.rectangle })
-	
+
+    --[[s.topwibox = awful.wibar({ position = "top", screen = s, height = 5, bg = "alpha", visible = true })
+    awful.placement.maximize_horizontally(s.topwibox)
+
+    s.topwibox:setup {
+	widget = s.newtaglist,
+    }]]--
+
     local arro = wibox.widget {{
 	layout = wibox.layout.align.horizontal,
 	expand = "none",
@@ -481,7 +520,8 @@ function theme.at_screen_connect(s)
             {
                 layout = wibox.layout.fixed.horizontal,
                 spacing = 5,
-                clock,
+                clockIcon,
+		clock,
             },
             left = 5,
             right = 5,
@@ -509,7 +549,7 @@ function theme.at_screen_connect(s)
         },
         shape = gears.shape.rectangle,
         bg = "alpha",
-	fg = theme.ln,
+	fg = theme.taglist_default,
         widget = wibox.container.background,
     }
 
@@ -520,8 +560,8 @@ function theme.at_screen_connect(s)
 	    {
 		layout = wibox.layout.fixed.horizontal,
 	    },
-	    left = 5,
-	    right = 5,
+	    left = 3,
+	    right = 3,
 	    widget = wibox.container.margin,
     	    },
 	},
@@ -591,7 +631,7 @@ function theme.at_screen_connect(s)
             {
                 layout = wibox.layout.fixed.horizontal,
                 spacing = 5,
-                weathericon,
+                weatherIcon,
                 theme.weather.widget,
             },
             left = 5,
@@ -612,7 +652,7 @@ function theme.at_screen_connect(s)
             {
                 layout = wibox.layout.fixed.horizontal,
                 spacing = 5,
-                tempicon,
+                tempIcon,
                 temp.widget,
             },
             left = 5,
@@ -620,8 +660,9 @@ function theme.at_screen_connect(s)
             widget = wibox.container.margin,
             },
         },
-        shape = gears.shape.rounded_bar,
-        bg = theme.color0,
+        shape = gears.shape.rectangle,
+        bg = "alpha",
+	fg = theme.red,
         widget = wibox.container.background
     }
 
@@ -632,7 +673,7 @@ function theme.at_screen_connect(s)
             {
                 layout = wibox.layout.fixed.horizontal,
                 spacing = 5,
-                cpuicon,
+                cpuIcon,
                 cpu.widget,
             },
             left = 5,
@@ -653,7 +694,7 @@ function theme.at_screen_connect(s)
             {
                 layout = wibox.layout.fixed.horizontal,
                 spacing = 5,
-                memicon,
+                memIcon,
                 mem.widget,
             },
             left = 5,
@@ -694,7 +735,7 @@ function theme.at_screen_connect(s)
             {
                 layout = wibox.layout.fixed.horizontal,
                 spacing = 5,
-                volicon,
+                volIcon,
                 theme.volume.widget,
             },
             left = 5,
@@ -707,7 +748,7 @@ function theme.at_screen_connect(s)
 	fg = theme.cotton,
         widget = wibox.container.background,
     }
-    
+
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
@@ -718,6 +759,7 @@ function theme.at_screen_connect(s)
 	    spacer,
 	    arro,
 	    spacer,
+	    timeIcon,
 	    clock,
 	    spacer,
 	    arro,
@@ -730,6 +772,10 @@ function theme.at_screen_connect(s)
 	    spacer,
 	    arro,
 	    spacer,
+	    temp,
+	    spacer,
+	    arro,
+	    spacer,
 	    ram,
 	    spacer,
 	    arro,
@@ -737,7 +783,6 @@ function theme.at_screen_connect(s)
 	    volume,
 	    spacer,
 	    arro,
-	    bigSpacer,
         },
 	{
             layout = wibox.layout.fixed.horizontal,
@@ -745,7 +790,7 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            s.mylayoutbox,
+	    bat,
         },
     }
 end
