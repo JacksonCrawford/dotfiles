@@ -22,7 +22,7 @@ local tonumber = tonumber
 local function factory(args)
     local weather               = { widget = wibox.widget.textbox() }
     local args                  = args or {}
-    local APPID                 = args.APPID or "d06e4a0c6d304d44be567dd5ae91ca43"
+    local APPID                 = args.APPID or "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     local timeout               = args.timeout or 60 * 15 -- 15 min
     local timeout_forecast      = args.timeout or 60 * 60 * 24 -- 24 hrs
     local current_call          = args.current_call  or "curl -s 'http://api.openweathermap.org/data/2.5/weather?id=%s&units=%s&lang=%s&APPID=%s'"
