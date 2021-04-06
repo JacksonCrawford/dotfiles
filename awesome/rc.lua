@@ -145,6 +145,15 @@ awful.util.taglist_buttons = my_table.join(
     awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
 )
+--[[
+tag.connect_signal(
+    "property::selected",
+    function(t)
+	if t.selected then
+	    beautiful.taglist_fg_focus = beautiful.occupiedColors[t.index]
+	end
+    end
+)]]--
 
 awful.util.tasklist_buttons = my_table.join(
     awful.button({ }, 1, function (c)
@@ -274,6 +283,19 @@ root.buttons(my_table.join(
 globalkeys = my_table.join(
 
     -- {{{ Personal keybindings
+    -- brightness
+    awful.key({ }, "XF86MonBrightnessDown",
+    	function()
+	    awful.spawn.with_shell("light -U 10")
+	end,
+	{descritpion = "brightness down", group = "brightness"}),
+    awful.key({ }, "XF86MonBrightnessUp",
+        function()
+	    awful.spawn.with_shell("light -A 10")
+	end,
+	{description = "brightness up", group = "brightness"}),
+
+
     -- dmenu
     awful.key({ modkey, "Shift" }, "Return",
     function ()
@@ -455,6 +477,10 @@ globalkeys = my_table.join(
         resize(client.focus, "right")
     end),
     ]]--
+
+    -- Resize tiled windows
+--    awful.key({ modkey, "Shift" }, "Down", function (c) c:relative_move( 0, 20, 0, 0) end),
+--    awful.key({ modkey, "Shift"   }, "Down",   function (c) c:relative_move(  0,  20,   0,   0) end),
 
     -- Dynamic tagging
     awful.key({ modkey, "Shift" }, "n", function () lain.util.add_tag() end,
