@@ -14,7 +14,7 @@ Some of the widgets have been adapted from the ArcoLinux default AwesomeWM confi
 ## Dependencies
 
 In Fedora, simply paste this line into the terminal to download the dependencies that I use:
-```sudo dnf install light```
+```sudo dnf install light rofi ```
 
 For other distro's just replace ```dnf``` with whatever package manager they use, like ```apt``` for Ubuntu or ```yay -S``` for Arch.
 
