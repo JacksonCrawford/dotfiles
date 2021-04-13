@@ -105,7 +105,7 @@ local tags = {
 awful.layout.suit.tile.left.mirror = true
 awful.layout.layouts = {
     awful.layout.suit.spiral,
---    awful.layout.suit.tile,
+    awful.layout.suit.tile,
     awful.layout.suit.floating,
     --awful.layout.suit.tile.left,
     --awful.layout.suit.tile.bottom,
@@ -286,23 +286,25 @@ globalkeys = my_table.join(
     -- brightness
     awful.key({ }, "XF86MonBrightnessDown",
     	function()
-	    awful.spawn.with_shell("light -U 10")
+	    awful.spawn.with_shell("light -U 5")
 	end,
-	{descritpion = "brightness down", group = "brightness"}),
+	{description = "brightness down", group = "brightness"}),
     awful.key({ }, "XF86MonBrightnessUp",
         function()
-	    awful.spawn.with_shell("light -A 10")
+	    awful.spawn.with_shell("light -A 5")
 	end,
 	{description = "brightness up", group = "brightness"}),
-
-
-    -- dmenu
-    awful.key({ modkey, "Shift" }, "Return",
-    function ()
-        awful.spawn(string.format("dmenu_run",
-        beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
+    -- redshift
+    awful.key({ modkey }, "grave",
+    	function()
+	    awful.spawn.with_shell("redshift")
 	end,
-    {description = "show dmenu", group = "hotkeys"}),
+	{description = "activate redshift", group = "brightness"}),
+    awful.key({ modkey, "Shift" }, "grave",
+    	function()
+	    awful.spawn.with_shell("redshift -x")
+	end,
+	{description = "deactivate redshift", group = "brightness"}),
 
     awful.key({ modkey }, "d",
     function()
@@ -314,7 +316,9 @@ globalkeys = my_table.join(
     awful.key({ modkey }, "b", function () awful.spawn( browser ) end,
         {description = "firefox web browser" , group = "gui apps" }),
     awful.key({ modkey }, "u", function () awful.spawn("xdg-open https://usfca.instructure.com/") end,
-        {description = "launch USF canvas", group = hotkeys}),
+        {description = "open USF canvas", group = hotkeys}),
+    awful.key({ modkey }, "g", function () awful.spawn("xdg-open https://github.com/") end,
+    	{description = "open GitHub", group = hotkeys}),
     awful.key({ modkey, altkey }, "e", function () awful.util.spawn( "emacsclient -a 'emacs' -c" ) end,
         {description = "emacs client" , group = "gui apps" }),
     awful.key({ modkey }, "f", function () awful.spawn( filemanager ) end,
@@ -327,9 +331,6 @@ globalkeys = my_table.join(
         {description = "Xfce screenshot", group = "screenshots"}),
     awful.key({ modkey1, "Shift"  }, "Print", function() awful.util.spawn("gnome-screenshot -i") end,
         {description = "Gnome screenshot", group = "screenshots"}),
-
-    -- Personal keybindings}}}
-
 
     -- Hotkeys Awesome
 
@@ -502,13 +503,13 @@ globalkeys = my_table.join(
     awful.key({ modkey, "Shift"   }, "x",  function () awful.spawn.with_shell( '~/.dmenu/prompt "are you sure?" "killall awesome"' ) end,
               {description = "quit awesome", group = "awesome"}),
 
-    awful.key({ altkey, "Shift"   }, "l",     function () awful.tag.incmwfact( 0.05)          end,
+    awful.key({ modkey, "Shift"   }, "left",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
-    awful.key({ altkey, "Shift"   }, "h",     function () awful.tag.incmwfact(-0.05)          end,
+    awful.key({ modkey, "Shift"   }, "right",     function () awful.tag.incmwfact(-0.05)          end,
               {description = "decrease master width factor", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
+    awful.key({ modkey, "Shift"   }, "]",     function () awful.tag.incnmaster( 1, nil, true) end,
               {description = "increase the number of master clients", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1, nil, true) end,
+    awful.key({ modkey, "Shift"   }, "[",     function () awful.tag.incnmaster(-1, nil, true) end,
               {description = "decrease the number of master clients", group = "layout"}),
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1, nil, true)    end,
               {description = "increase the number of columns", group = "layout"}),
@@ -552,13 +553,13 @@ globalkeys = my_table.join(
     --awful.key({ modkey1 }, "Up",
     awful.key({ }, "XF86AudioRaiseVolume",
         function ()
-            os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
+            os.execute(string.format("amixer -q set %s 5%%+", beautiful.volume.channel))
             beautiful.volume.update()
         end),
     --awful.key({ modkey1 }, "Down",
     awful.key({ }, "XF86AudioLowerVolume",
         function ()
-            os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
+            os.execute(string.format("amixer -q set %s 5%%-", beautiful.volume.channel))
             beautiful.volume.update()
         end),
     awful.key({ }, "XF86AudioMute",
@@ -637,6 +638,20 @@ clientkeys = my_table.join(
             c:raise()
         end ,
         {description = "maximize", group = "client"})
+--[[
+    awful.key({ modkey, "Control" }, "Down",   function (c) c:relative_move(  0,  20,   0,   0) end),
+    awful.key({ modkey, "Control" }, "Up",     function (c) c:relative_move(  0, -20,   0,   0) end),
+    awful.key({ modkey, "Control" }, "Left",   function (c) c:relative_move(-20,   0,   0,   0) end),
+    awful.key({ modkey, "Control" }, "Right",  function (c) c:relative_move( 20,   0,   0,   0) end)]]--
+
+--[[    awful.key({ modkey, "Control" }, "Up", awful.client.incwfact(-0.05) end,
+    	{description = "Expand Up", group = "layout"}),
+    awful.key({ modkey, "Control" }, "Down", awful.client.incwfact(0.05) end,
+    	{description = "Expand Down", group = "layout"}),
+    awful.key({ modkey, "Control" }, "Left", awful.client.incwmfact(-0.05) end,
+    	{description = "Expand Left", group = "layout"}),
+    awful.key({ modkey, "Control" }, "Right", awful.client.incwmfact(0.05) end,
+    	{description = "Expand Right", group = "layout"})]]--
 )
 
 -- Bind all key numbers to tags.
