@@ -7,6 +7,8 @@ This is my pretty simple Awesome setup, very minimal as far as features but I ha
 
 The colorscheme is an original one that I call "ethereal." It's solid, but not super pleasant to look at, so another one is in the works :)
 
+This was originally adapted from [Awesome Copycats](https://github.com/lcpz/awesome-copycats).
+
 
 ## Dependencies
 
