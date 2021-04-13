@@ -3,9 +3,6 @@
      Simple Awesome WM theme
      Ethereal colorscheme
 
-     Adapted from:
-     github.com/lcpz
-
 --]]
 
 local gears = require("gears")
@@ -18,9 +15,10 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/ethereal"
-theme.wallpaper                                 = "~/Pictures/wallpapers/mountainsF.jpg"
+theme.wallpaper                                 = "~/Pictures/wallpapers/fogRock.jpg"
 theme.font                                      = "Icomoon 12"
 theme.taglist_font                              = "Microns 13"
+theme.sysFont					= "Futura 12"
 theme.mint					= "#acdabd"
 theme.dmint					= "#65a97e"
 theme.lg					= "#d9d9d9"
@@ -49,6 +47,15 @@ theme.taglist_default				= theme.ln..85
 theme.taglist_fg_occupied			= theme.ln
 theme.tasklist_bg_focus                         = "#000000"
 theme.tasklist_fg_focus                         = "alpha"
+theme.hotkeys_bg                                = theme.navy
+theme.hotkeys_fg                                = theme.lg
+theme.hotkeys_modifiers_fg                      = theme.mint
+theme.hotkeys_font                              = theme.sysFont
+theme.hotkeys_description_font                  = theme.sysFont
+theme.menu_bg_focus                             = "alpha"
+theme.menu_fg_focus                             = theme.mint
+theme.menu_bg_normal                            = theme.navy
+theme.menu_fg_normal                            = theme.lg
 theme.border_width                              = 2
 theme.border_normal                             = theme.navy
 theme.border_focus                              = theme.mint
@@ -60,14 +67,14 @@ theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
 theme.menu_height                               = 20
 theme.menu_width                                = 140
+theme.notification_bg				= theme.navy
+theme.notification_fg				= theme.lg
+theme.notification_border_color			= theme.mint
+theme.notification_font				= theme.sysFont
 theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
 theme.awesome_icon                              = theme.dir .. "/icons/awesome.png"
 theme.taglist_squares_sel                       = theme.dir .. "/icons/emptySquareSel.png"
 theme.taglist_squares_unsel                     = theme.dir .. "/icons/emptySquareUnsel.png"
-theme.layout_tile                               = theme.dir .. "/icons/tile.png"
-theme.layout_tileleft                           = theme.dir .. "/icons/tileleft.png"
-theme.layout_tilebottom                         = theme.dir .. "/icons/tilebottom.png"
-theme.layout_tiletop                            = theme.dir .. "/icons/tiletop.png"
 theme.layout_fairv                              = theme.dir .. "/icons/fairv.png"
 theme.layout_fairh                              = theme.dir .. "/icons/fairh.png"
 theme.layout_spiral                             = theme.dir .. "/icons/spiral.png"
@@ -125,7 +132,6 @@ local separators = lain.util.separators
 
 
 -- Textclock
-local clockicon = wibox.widget.imagebox(theme.widget_clock)
 local clock = awful.widget.watch(
     "date +'%a %d %b %R'", 60,
     function(widget, stdout)
@@ -135,7 +141,7 @@ local clock = awful.widget.watch(
 
 local clockIcon = wibox.widget {
 	text = "",
-	font = "Icomoon 12",
+	font = theme.font,
 	widget = wibox.widget.textbox
 }
 
@@ -143,44 +149,11 @@ local clockIcon = wibox.widget {
 theme.cal = lain.widget.cal({
     attach_to = { clock },
     notification_preset = {
-        font = "Futura 12",
+        font = theme.sysFont,
         fg   = theme.purple,
         bg   = theme.navy,
     }
 })
-
-
-
--- Taskwarrior
---local task = wibox.widget.imagebox(theme.widget_task)
---lain.widget.contrib.task.attach(task, {
-    -- do not colorize output
---    show_cmd = "task | sed -r 's/\\x1B\\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g'"
---})
---task:buttons(gears.table.join(awful.button({}, 1, lain.widget.contrib.task.prompt)))
-
-
-
--- Mail IMAP check
-local mailicon = wibox.widget.imagebox(theme.widget_mail)
---[[ commented because it needs to be set before use
-mailicon:buttons(my_table.join(awful.button({ }, 1, function () awful.spawn(mail) end)))
-theme.mail = lain.widget.imap({
-    timeout  = 180,
-    server   = "server",
-    mail     = "mail",
-    password = "keyring get mail",
-    settings = function()
-        if mailcount > 0 then
-            widget:set_text(" " .. mailcount .. " ")
-            mailicon:set_image(theme.widget_mail_on)
-        else
-            widget:set_text("")
-            mailicon:set_image(theme.widget_mail)
-        end
-    end
-})
---]]
 
 -- ALSA volume
 theme.volume = lain.widget.alsabar({
@@ -225,7 +198,6 @@ theme.mpd = lain.widget.mpd({
 })
 
 -- MEM
-local memicon = wibox.widget.imagebox(theme.widget_mem)
 local mem = lain.widget.mem({
     settings = function()
         widget:set_markup(markup.font(theme.font, " " .. mem_now.used .. "MB "))
@@ -234,12 +206,11 @@ local mem = lain.widget.mem({
 
 local memIcon = wibox.widget {
 	text = "",
-	font = "Icomoon 12",
+	font = theme.font,
 	widget = wibox.widget.textbox
 }
 
 -- CPU
-local cpuicon = wibox.widget.imagebox(theme.widget_cpu)
 local cpu = lain.widget.cpu({
     settings = function()
         widget:set_markup(markup.font(theme.font, " " .. cpu_now.usage .. "% "))
@@ -248,7 +219,7 @@ local cpu = lain.widget.cpu({
 
 local cpuIcon = wibox.widget {
 	text = "",
-	font = "Icomoon 12",
+	font = theme.font,
 	widget = wibox.widget.textbox
 }
 
@@ -259,11 +230,10 @@ local temp = lain.widget.temp({
     end
 })
 --]]
-local tempicon = wibox.widget.imagebox(theme.widget_temp)
 
 local tempIcon = wibox.widget {
 	text="",
-	font="Icomoon 12",
+	font = theme.font,
 	widget=wibox.widget.textbox
 }
 
@@ -271,7 +241,7 @@ local weathericon = wibox.widget.imagebox(theme.widget_weather)
 theme.weather = lain.widget.weather({
     city_id = 4460243, -- Charlotte
 --    city_id = 5391959, -- San Francisco
-    notification_preset = { font = "Futura 12", fg = theme.fg_normal },
+    notification_preset = { font = theme.sysFont, fg = theme.fg_normal },
     weather_na_markup = markup.fontfg(theme.font, "#ffffff", "N/A "),
     settings = function()
         descr = weather_now["weather"][1]["description"]:lower()
@@ -282,17 +252,24 @@ theme.weather = lain.widget.weather({
 
 local weatherIcon = wibox.widget {
 	text="",
-	font="Icomoon 12",
+	font = theme.font,
 	widget=wibox.widget.textbox
 }
 
 -- Battery
 local baticon = wibox.widget.imagebox(theme.widget_battery)
+
+local batIcon = wibox.widget {
+	text = "",
+	font = "Icomoon 10",
+	widget = wibox.widget.textbox
+}
+
 local bat = lain.widget.bat({
     settings = function()
         if bat_now.status and bat_now.status ~= "N/A" then
             if bat_now.ac_status == 1 then
-                widget:set_markup(markup.font(theme.font, " AC "))
+                widget:set_markup(markup.font("Icomoon 10", "  "))
                 baticon:set_image(theme.widget_ac)
                 return
             elseif not bat_now.perc and tonumber(bat_now.perc) <= 5 then
@@ -310,66 +287,19 @@ local bat = lain.widget.bat({
     end
 })
 
-local volMute = wibox.widget {
-	text = "",
+-- ALSA volume
+theme.volume = lain.widget.alsa({
+    settings = function()
+	widget:set_markup(markup.font(theme.font, " " .. volume_now.level .. "% "))
+    end
+})
+
+-- Fixed volume icon
+local volIcon = wibox.widget {
+	text="",
 	font = theme.font,
 	widget = wibox.widget.textbox
 }
-
--- ALSA volume
-local volicon = wibox.widget.imagebox(theme.widget_vol)
-theme.volume = lain.widget.alsa({
-    settings = function()
-        if volume_now.status == "off" then
-            volicon:set_image(theme.widget_vol_mute)
-        elseif tonumber(volume_now.level) == 0 then
-            volicon:set_image(theme.widget_vol_no)
-        elseif tonumber(volume_now.level) <= 50 then
-            volicon:set_image(theme.widget_vol_low)
-        else
-            volicon:set_image(theme.widget_vol)
-        end
-
-        widget:set_markup(markup.font(theme.font, " " .. volume_now.level .. "% "))
-    end
-})
-
--- Fixed volume
-local volIcon = wibox.widget {
-	text="",
-	font="Icomoon 12",
-	widget = wibox.widget.textbox
-}
-
--- Net
-local neticon = wibox.widget.imagebox(theme.widget_net)
-local net = lain.widget.net({
-    settings = function()
-        widget:set_markup(markup.fontfg(theme.font, "#FEFEFE", " " .. net_now.received .. " ↓↑ " .. net_now.sent .. " "))
-    end
-})
-
--- Separators
-local arrow = separators.arrow_left
-
-function theme.powerline_rl(cr, width, height)
-    local arrow_depth, offset = height/2, 0
-
-    -- Avoid going out of the (potential) clip area
-    if arrow_depth < 0 then
-        width  =  width + 2*arrow_depth
-        offset = -arrow_depth
-    end
-
-    cr:move_to(offset + arrow_depth         , 0        )
-    cr:line_to(offset + width               , 0        )
-    cr:line_to(offset + width - arrow_depth , height/2 )
-    cr:line_to(offset + width               , height   )
-    cr:line_to(offset + arrow_depth         , height   )
-    cr:line_to(offset                       , height/2 )
-
-    cr:close_path()
-end
 
 
 local bar
@@ -495,6 +425,7 @@ function theme.at_screen_connect(s)
 	widget = s.newtaglist,
     }]]--
 
+    -- Separator
     local arro = wibox.widget {{
 	layout = wibox.layout.align.horizontal,
 	expand = "none",
@@ -569,60 +500,6 @@ function theme.at_screen_connect(s)
 	bg = "alpha",
 	widget = wibox.container.background,
     }
-
-    local laptopSpacer = wibox.widget {{
-	layout = wibox.layout.align.horizontal,
-	expand = "none",
-	{
-	    {
-		layout = wibox.layout.fixed.horizontal,
-	    },
-	    left = 300,
-	    right = 250,
-	    widget = wibox.container.margin,
-    	    },
-	},
-	shape = gears.shape.rectangle,
-	bg = "alpha",
-	widget = wibox.container.background,
-    }
-
-    local mediumSpacer = wibox.widget {{
-        layout = wibox.layout.align.horizontal,
-        expand = "none",
-        {
-            {
-                layout = wibox.layout.fixed.horizontal,
-            },
-            left = 485,
-            right = 482,
-            widget = wibox.container.margin,
-            },
-        },
-        shape = gears.shape.rectangle,
-        bg = "alpha",
-        widget = wibox.container.background,
-    }
-
-    local bigSpacer = wibox.widget {{
-        layout = wibox.layout.align.horizontal,
-        expand = "none",
-        {
-            {
-                layout = wibox.layout.fixed.horizontal,
-            },
-            left = 890,
---            left = 410,
---            right = 410,
-            widget = wibox.container.margin,
-            },
-        },
-        shape = gears.shape.rectangle,
-        bg = "alpha",
-        widget = wibox.container.background,
-    }
-
-
 
     local weather = wibox.widget {{
         layout = wibox.layout.align.horizontal,
@@ -749,6 +626,27 @@ function theme.at_screen_connect(s)
         widget = wibox.container.background,
     }
 
+    local battery = wibox.widget {{
+	layout = wibox.layout.align.horizontal,
+	expand = "none",
+	{
+	    {
+		layout = wibox.layout.fixed.horizontal,
+		spacing = 5,
+		batIcon,
+		bat,
+	    },
+	    left = 5,
+	    right = 5,
+	    widget = wibox.container.margin,
+	},
+	},
+	shape = gears.shape.rectangle,
+	bg = "alpha",
+	fg = theme.mint,
+	widget = wibox.container.background,
+    }
+
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
@@ -789,8 +687,9 @@ function theme.at_screen_connect(s)
 	},
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
-	    bat,
+--            wibox.widget.systray(),
+	    battery,
+--            s.mylayoutbox,
         },
     }
 end
