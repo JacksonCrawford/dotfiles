@@ -1,7 +1,7 @@
 # dotfiles
 My personal AwesomeWM Config
 
-![desktop](screenshots/desktop3.png)
+![desktop](screenshots/desktop.png)
 
 This is my pretty simple Awesome setup, very minimal as far as features but I have all the essential stuff in the top bar. Rofi is used as the launcher (with a matching colorscheme), though there are hotkeys for most frequently used programs.
 
