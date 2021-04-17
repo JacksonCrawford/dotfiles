@@ -17,7 +17,7 @@ local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/ethereal"
 theme.wallpaper                                 = "~/Pictures/wallpapers/oils.jpg"
 theme.font                                      = "Icomoon 12"
-theme.taglist_font                              = "Icomoon 12"
+theme.taglist_font                              = "Icomoon 11"
 theme.sysFont					= "Futura 12"
 
 theme.gray                                      = "#212631"
@@ -36,8 +36,7 @@ theme.lg					= "#d9d9d9"
 theme.navy					= "#43566c"
 theme.lightNavy					= "#7B97B5"
 theme.ln					= "#96B1CF"
-theme.yellow					= "#e5ebaa"
---theme.green					= "#6ED6A5"
+--theme.yellow					= "#e5ebaa"
 theme.cotton					= "#7AF7F7"
 theme.orange					= "#F3BB72"
 theme.red					= "#ef6464"
@@ -50,7 +49,7 @@ theme.fg_normal                                 = "#d8dee9"
 theme.fg_focus                                  = theme.mint
 theme.fg_urgent                                 = theme.yellow
 theme.bg_normal                                 = "#1C00ff00"
-theme.bg_focus                                  = theme.navy
+theme.bg_focus                                  = theme.pastPurple
 theme.bg_urgent                                 = "alpha"
 theme.taglist_fg_focus                          = theme.pastGreen
 theme.taglist_default				= "#3b4150"
@@ -59,19 +58,23 @@ theme.taglist_shape                             = theme.rounded_bar
 theme.taglist_bg_focus                          = "alpha"
 theme.tasklist_bg_focus                         = "#000000"
 theme.tasklist_fg_focus                         = "alpha"
-theme.hotkeys_bg                                = theme.navy
+theme.tasklist_shape_border_color_focus         = theme.pastGreen
+theme.tasklist_shape_border_color_urgent        = theme.yellow
+--theme.tasklist
+theme.hotkeys_bg                                = theme.gray
 theme.hotkeys_fg                                = theme.lg
 theme.hotkeys_modifiers_fg                      = theme.mint
 theme.hotkeys_font                              = theme.sysFont
 theme.hotkeys_description_font                  = theme.sysFont
+theme.hotkeys_border_color                      = theme.pastPurple
 theme.menu_bg_focus                             = theme.ln
 theme.menu_fg_focus                             = theme.mint
-theme.menu_bg_normal                            = theme.navy
+theme.menu_bg_normal                            = theme.gray
 theme.menu_fg_normal                            = theme.lg
 theme.border_width                              = 2
-theme.border_normal                             = theme.navy
-theme.border_focus                              = theme.mint
-theme.border_marked                             = theme.color0
+theme.border_normal                             = theme.gray
+theme.border_focus                              = theme.pastGreen
+theme.border_marked                             = theme.yellow
 theme.titlebar_bg_focus                         = "#3F3F3F"
 theme.titlebar_bg_normal                        = "#3F3F3F"
 theme.titlebar_bg_focus                         = theme.bg_focus
@@ -79,7 +82,7 @@ theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
 theme.menu_height                               = 20
 theme.menu_width                                = 140
-theme.notification_bg				= theme.navy
+theme.notification_bg				= theme.gray
 theme.notification_fg				= theme.lg
 theme.notification_border_color			= theme.mint
 theme.notification_font				= theme.sysFont
@@ -118,7 +121,8 @@ theme.widget_task                               = theme.dir .. "/icons/task.png"
 theme.widget_scissors                           = theme.dir .. "/icons/scissors.png"
 theme.widget_weather                            = theme.dir .. "/icons/dish.png"
 theme.tasklist_plain_task_name                  = true
-theme.tasklist_disable_icon                     = true
+theme.tasklist_disable_icon                     = false
+theme.tasklist_disable_task_name                = true
 theme.useless_gap                               = 4
 theme.titlebar_close_button_focus               = theme.dir .. "/icons/titlebar/close_focus.png"
 theme.titlebar_close_button_normal              = theme.dir .. "/icons/titlebar/close_normal.png"
@@ -163,7 +167,7 @@ theme.cal = lain.widget.cal({
     notification_preset = {
         font = theme.sysFont,
         fg   = theme.pastPurple,
-        bg   = theme.navy,
+        bg   = theme.gray,
     }
 })
 
@@ -198,7 +202,7 @@ theme.mpd = lain.widget.mpd({
             artist = " " .. mpd_now.artist .. " "
             title  = mpd_now.title  .. " "
             mpdicon:set_image(theme.widget_music_on)
-            widget:set_markup(markup.font(theme.font, markup(theme.navy, artist) .. " " .. title))
+            widget:set_markup(markup.font(theme.font, markup(theme.gray, artist) .. " " .. title))
         elseif mpd_now.state == "pause" then
             widget:set_markup(markup.font(theme.font, " mpd paused "))
             mpdicon:set_image(theme.widget_music_pause)
@@ -425,7 +429,57 @@ function theme.at_screen_connect(s)
       }]]--
 
     -- Create a tasklist widget
-    --s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
+--    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
+    s.mytasklist = awful.widget.tasklist {
+    screen   = s,
+    filter   = awful.widget.tasklist.filter.currenttags,
+    buttons  = tasklist_buttons,
+    style    = {
+        shape_border_width = 1,
+        shape_border_color = '#777777',
+        shape  = gears.shape.rounded_bar,
+    },
+    layout   = {
+        spacing = 10,
+        spacing_widget = {
+            {
+                forced_width = 5,
+                shape        = gears.shape.circle,
+                widget       = wibox.widget.separator
+            },
+            valign = 'center',
+            halign = 'center',
+            widget = wibox.container.place,
+        },
+        layout  = wibox.layout.flex.horizontal
+    },
+    -- Notice that there is *NO* wibox.wibox prefix, it is a template,
+    -- not a widget instance.
+    widget_template = {
+        {
+            {
+                {
+                    {
+                        id     = 'icon_role',
+                        widget = wibox.widget.imagebox,
+                    },
+                    margins = 2,
+                    widget  = wibox.container.margin,
+                },
+                {
+                    id     = 'text_role',
+                    widget = wibox.widget.textbox,
+                },
+                layout = wibox.layout.fixed.horizontal,
+            },
+            left  = 10,
+            right = 10,
+            widget = wibox.container.margin
+        },
+        id     = 'background_role',
+        widget = wibox.container.background,
+    },
+}
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = 20, bg = theme.gray, fg = theme.fg_normal, shape = gears.shape.rectangle })
@@ -444,6 +498,7 @@ function theme.at_screen_connect(s)
 	{
 	    {
 		layout = wibox.layout.fixed.horizontal,
+                s.mytasklist,
 		spacing = 2,
 	    },
 	    left = 4,
@@ -455,6 +510,43 @@ function theme.at_screen_connect(s)
 	bg = theme.lg,
 	widget = wibox.container.background,
     }
+
+    local superSpacer = wibox.widget {{
+        layout = wibox.layout.align.horizontal,
+        expand = "none",
+        {
+            {
+                layout = wibox.layout.fixed.horizontal,
+                spacing = 5,
+            },
+            left = 450,
+            widget = wibox.container.margin,
+            },
+        },
+        shape = gears.shape.rectangle,
+        bg = "alpha",
+        widget = wibox.container.background,
+    }
+
+    local tasklist = wibox.widget {{
+        layout = wibox.layout.align.horizontal,
+        expand = "none",
+        {
+            {
+                layout = wibox.layout.fixed.horizontal,
+                spacing = 2,
+                s.mytasklist,
+            },
+            left = 5,
+            right = 5,
+            widget = wibox.container.margin,
+            },
+        },
+        shape = gears.shape.rounded_bar,
+        bg = "alpha",
+        widget = wibox.container.background,
+    }
+
 
     local clock = wibox.widget {{
         layout = wibox.layout.align.horizontal,
@@ -668,6 +760,10 @@ function theme.at_screen_connect(s)
         },
 	{
             layout = wibox.layout.fixed.horizontal,
+            spacing = theme.wibar_spacing,
+            superSpacer,
+--            s.mytasklist,
+            tasklist,
 	},
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
