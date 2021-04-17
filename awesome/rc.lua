@@ -54,14 +54,12 @@ end
 run_once({ "unclutter -root" }) -- entries must be comma-separated
 
 local themes = {
-    "simple",         -- 1
-    "simpleblue",     -- 2
-    "simplegreen",    -- 3
-    "ethereal"	      -- 4
+    "ethereal",	        -- 1
+    "evanescent"        -- 2
 }
 
 -- choose your theme here
-local chosen_theme = themes[4]
+local chosen_theme = themes[2]
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
 
@@ -87,7 +85,8 @@ awful.util.terminal = terminal
 --awful.util.tagnames = { "  ", "  ", "  ", "  ", "  ", " ", "  ", "  ", "  ", "  " }
 --awful.util.tagnames = { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " }
 --awful.util.tagnames = { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " }
-awful.util.tagnames = { " ● ", " ● ", " ● ", " ● ", " ● ", " ● ", " ● ", " ● ", " ● ", " ● " }
+--awful.util.tagnames = { " ● ", " ● ", " ● ", " ● ", " ● ", " ● ", " ● ", " ● ", " ● ", " ● " }
+awful.util.tagnames = { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " }
 
 local tags = {
     {text = "web", type = "web", defaultApp = browser},
