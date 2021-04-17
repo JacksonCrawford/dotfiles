@@ -56,11 +56,13 @@ theme.taglist_default				= "#3b4150"
 theme.taglist_fg_occupied			= theme.pastPurple
 theme.taglist_shape                             = theme.rounded_bar
 theme.taglist_bg_focus                          = "alpha"
-theme.tasklist_bg_focus                         = "#000000"
+theme.tasklist_bg_normal                        = "#141823"
+theme.tasklist_bg_focus                         = "alpha"
 theme.tasklist_fg_focus                         = "alpha"
 theme.tasklist_shape_border_color_focus         = theme.pastGreen
 theme.tasklist_shape_border_color_urgent        = theme.yellow
---theme.tasklist
+theme.tasklist_shape_border_width_focus         = 2.5
+theme.tasklis_shape_border_width_minimized      = 0
 theme.hotkeys_bg                                = theme.gray
 theme.hotkeys_fg                                = theme.lg
 theme.hotkeys_modifiers_fg                      = theme.mint
@@ -440,7 +442,7 @@ function theme.at_screen_connect(s)
         shape  = gears.shape.rounded_bar,
     },
     layout   = {
-        spacing = 10,
+        spacing = 15,
         spacing_widget = {
             {
                 forced_width = 5,
