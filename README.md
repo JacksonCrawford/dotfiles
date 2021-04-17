@@ -19,4 +19,4 @@ This was originally adapted from [Awesome Copycats](https://github.com/lcpz/awes
 
 ## Fonts
 
-I use [Icomoon](https://icomoon.io/) for the top bar icons and [Microns](https://www.s-ings.com/projects/microns-icon-font/) for the taglist (workspaces list/desktop list/whatever!) dots. Then [Futura](https://fonts.adobe.com/fonts/futura-pt) is set in theme.lua to be a general system font.
+I use [Icomoon](https://icomoon.io/) for the top bar icons and the taglist (workspaces list/desktop list/whatever!) circles. Then [Futura](https://fonts.adobe.com/fonts/futura-pt) is set in theme.lua to be a general system font.
