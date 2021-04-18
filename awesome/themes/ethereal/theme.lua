@@ -1,6 +1,6 @@
 --[[
 
-     Simple Awesome WM theme
+     A simple Awesome WM theme
      Ethereal colorscheme
 
 --]]
@@ -15,7 +15,7 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/ethereal"
-theme.wallpaper                                 = "~/Pictures/wallpapers/fogRock.jpg"
+theme.wallpaper                                 = "../../walls/fogRock.jpg"
 theme.font                                      = "Icomoon 12"
 theme.taglist_font                              = "Microns 13"
 theme.sysFont					= "Futura 12"
