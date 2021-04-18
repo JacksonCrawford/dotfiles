@@ -1,7 +1,7 @@
 --[[
 
-     Simple Awesome WM theme
-     Ethereal colorscheme
+     A simple Awesome WM theme
+     Evanescent colorscheme
 
 --]]
 
@@ -14,8 +14,8 @@ local math, string, os = math, string, os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
-theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/ethereal"
-theme.wallpaper                                 = "~/Pictures/wallpapers/oils.jpg"
+theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/evanescent"
+theme.wallpaper                                 = "../../walls/oils.jpg"
 theme.font                                      = "Icomoon 12"
 theme.taglist_font                              = "Icomoon 11"
 theme.sysFont					= "Futura 12"
@@ -30,7 +30,9 @@ theme.green                                     = "#58e68e"
 theme.purple					= "#e87be8"
 theme.yellow                                    = "#ecf17e"
 theme.pastGreen                                 = "#89f5b3"
-theme.pastPurple                                = "#ee9dee"
+--theme.pastPurple                                = "#ee9dee"
+--theme.pastPurple                                = "#efaeef"
+theme.pastPurple                                = "#eda2ed"
 
 theme.mint					= "#acdabd"
 theme.dmint					= "#65a97e"
