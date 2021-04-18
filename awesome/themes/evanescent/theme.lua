@@ -20,7 +20,9 @@ theme.font                                      = "Icomoon 12"
 theme.taglist_font                              = "Icomoon 11"
 theme.sysFont					= "Futura 12"
 
-theme.gray                                      = "#212631"
+--theme.gray                                      = "#212631"
+--theme.gray                                      = "#2f3748"
+theme.gray                                      = "#323a4a"
 theme.lightGray                                 = "#bfbfbf"
 theme.lightBlue                                 = "#98e4ed"
 theme.white                                     = "#e9e9e9"
@@ -36,7 +38,6 @@ theme.lg					= "#d9d9d9"
 theme.navy					= "#43566c"
 theme.lightNavy					= "#7B97B5"
 theme.ln					= "#96B1CF"
---theme.yellow					= "#e5ebaa"
 theme.cotton					= "#7AF7F7"
 theme.orange					= "#F3BB72"
 theme.red					= "#ef6464"
@@ -52,11 +53,11 @@ theme.bg_normal                                 = "#1C00ff00"
 theme.bg_focus                                  = theme.pastPurple
 theme.bg_urgent                                 = "alpha"
 theme.taglist_fg_focus                          = theme.pastGreen
-theme.taglist_default				= "#3b4150"
+theme.taglist_default				= "#51596b"
 theme.taglist_fg_occupied			= theme.pastPurple
 theme.taglist_shape                             = theme.rounded_bar
 theme.taglist_bg_focus                          = "alpha"
-theme.tasklist_bg_normal                        = "#141823"
+theme.tasklist_bg_normal                        = "#272e3c"
 theme.tasklist_bg_focus                         = "alpha"
 theme.tasklist_fg_focus                         = "alpha"
 theme.tasklist_shape_border_color_focus         = theme.pastGreen
@@ -500,7 +501,6 @@ function theme.at_screen_connect(s)
 	{
 	    {
 		layout = wibox.layout.fixed.horizontal,
-                s.mytasklist,
 		spacing = 2,
 	    },
 	    left = 4,
