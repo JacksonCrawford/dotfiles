@@ -15,14 +15,15 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/evanescent"
-theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/walls/oils.jpg"
-theme.font                                      = "Icomoon 12"
-theme.taglist_font                              = "Icomoon 11"
+theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/walls/nebula.jpg"
+theme.font                                      = "Icomoon 13"
+theme.taglist_font                              = "Icomoon 12"
 theme.sysFont					= "Futura 12"
 
 --theme.gray                                      = "#212631"
 --theme.gray                                      = "#2f3748"
-theme.gray                                      = "#323a4a"
+--theme.gray                                      = "#323a4a"
+theme.gray                                      = "#2e333c"
 theme.lightGray                                 = "#bfbfbf"
 theme.lightBlue                                 = "#98e4ed"
 theme.white                                     = "#e9e9e9"
@@ -247,7 +248,7 @@ local cpuIcon = wibox.widget {
 -- Coretemp (lain, average)
 local temp = lain.widget.temp({
     settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. coretemp_now .. "°C "))
+        widget:set_markup(markup.font(theme.font, " " .. 31.0 .. "°C "))
     end
 })
 --]]
@@ -487,7 +488,7 @@ function theme.at_screen_connect(s)
 }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 20, bg = theme.gray, fg = theme.fg_normal, shape = gears.shape.rectangle })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 24, bg = theme.gray, fg = theme.fg_normal, shape = gears.shape.rectangle })
 
     --[[s.topwibox = awful.wibar({ position = "top", screen = s, height = 5, bg = "alpha", visible = true })
     awful.placement.maximize_horizontally(s.topwibox)
@@ -523,7 +524,7 @@ function theme.at_screen_connect(s)
                 layout = wibox.layout.fixed.horizontal,
                 spacing = 5,
             },
-            left = 450,
+            left = 835,
             widget = wibox.container.margin,
             },
         },
@@ -727,8 +728,8 @@ function theme.at_screen_connect(s)
             widget= wibox.container.margin,
         },
         },
-        shape = gears.shape.rounded_bar,
-        bg = "alpha",
+        shape = gears.shape.rectangle,
+	bg = "alpha",
 	fg = theme.lightBlue,
         widget = wibox.container.background,
     }
@@ -748,8 +749,8 @@ function theme.at_screen_connect(s)
 	    widget = wibox.container.margin,
 	},
 	},
-	shape = gears.shape.rounded_bar,
-	bg = "alpha",
+	shape = gears.shape.rectangle,
+        bg = "alpha",
 	fg = theme.mint,
 	widget = wibox.container.background,
     }

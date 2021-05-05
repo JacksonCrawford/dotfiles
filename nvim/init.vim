@@ -1,5 +1,9 @@
 " Vim-Plug plugins. Run :PlugInstall to install!
 call plug#begin(stdpath('data') . '/plugged')
+" Julia
+Plug 'JuliaEditorSupport/julia-vim'
+Plug 'mroavi/vim-julia-cell', {'for': 'julia' }
+Plug 'jpalardy/vim-slime'
 
 " NERDTree
 Plug 'preservim/nerdtree'
@@ -22,6 +26,14 @@ call plug#end()
 
 " Remap ;; to esc 
 inoremap ;; <ESC>
+
+" Vim Slime config stuff
+let g:slime_target = 'kitty'
+
+let g:julia_cell_delimit_cells_by = 'tags'
+
+nnoremap <F5> :w<CR>:JuliaCellRun<CR>
+
 
 " Allow powerline fonts
 let g:airline_powerline_fonts = 1
