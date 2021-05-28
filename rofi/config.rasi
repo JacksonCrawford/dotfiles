@@ -1,6 +1,6 @@
 configuration {
-    font: "futura 11";
-    theme: "~/.config/rofi/theme.rasi";
+    font: "hack 12";
+    theme: "~/.config/rofi/fedora.rasi";
     modi: "window,run";
     location: 0;
     columns: 2;
