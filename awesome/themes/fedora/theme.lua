@@ -232,7 +232,7 @@ local cpuIcon = wibox.widget {
 -- Coretemp (lain, average)
 local temp = lain.widget.temp({
     settings = function()
-        widget:set_markup(markup.font(theme.font_hack, " " .. 31.0 .. "°C "))
+        widget:set_markup(markup.font(theme.font_hack, " " .. coretemp_now .. "°C "))
     end
 })
 --]]
