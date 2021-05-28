@@ -55,11 +55,13 @@ run_once({ "unclutter -root" }) -- entries must be comma-separated
 
 local themes = {
     "ethereal",	        -- 1
-    "evanescent"        -- 2
+    "evanescent",       -- 2
+    "paradox",          -- 3
+    "fedora"            -- 4
 }
 
 -- choose your theme here
-local chosen_theme = themes[2]
+local chosen_theme = themes[4]
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
 
@@ -72,7 +74,7 @@ local browser           = "firefox"
 local editor            = os.getenv("EDITOR") or "nvim"
 local editorgui         = "geany"
 local filemanager       = "thunar"
-local mailclient        = "geary"
+local mailclient        = "thunderbird"
 local mediaplayer       = "vlc"
 local scrlocker         = "slimlock"
 local terminal          = "kitty"
@@ -87,6 +89,10 @@ awful.util.terminal = terminal
 --awful.util.tagnames = { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " }
 --awful.util.tagnames = { " ● ", " ● ", " ● ", " ● ", " ● ", " ● ", " ● ", " ● ", " ● ", " ● " }
 awful.util.tagnames = { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " }
+--awful.util.tagnames = { "  ", "  ", "", "", "  ", "  ", "  ", "  ", "  ", "  " }
+--awful.util.tagnames = { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " }
+--awful.util.tagnames = { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " }
+--awful.util.tagnames = { " _ ", " _ ", " __ ", " ___ ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 ", " 10 " }
 
 local tags = {
     {text = "web", type = "web", defaultApp = browser},
