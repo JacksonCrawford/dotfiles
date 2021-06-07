@@ -13,174 +13,156 @@ local wibox = require("wibox")
 local math, string, os = math, string, os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
-local theme                                     = {}
-theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/evanescent"
-theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/walls/nebula.jpg"
-theme.font                                      = "Icomoon 13"
-theme.taglist_font                              = "Icomoon 12"
-theme.sysFont					= "Futura 12"
+local theme = {}
+theme.dir = os.getenv("HOME") .. "/.config/awesome/themes/celestial"
+theme.wallpaper = os.getenv("HOME") .. "/.config/awesome/walls/green_nebula.jpg"
+theme.font = "Icomoon 13"
+theme.taglist_font = "Icomoon 16"
+theme.sysFont = "Futura 12"
+theme.font_hack = "hack 14"
 
---theme.gray                                      = "#212631"
---theme.gray                                      = "#2f3748"
---theme.gray                                      = "#323a4a"
-theme.gray                                      = "#2e333c"
-theme.lightGray                                 = "#bfbfbf"
-theme.lightBlue                                 = "#98e4ed"
-theme.white                                     = "#e9e9e9"
-theme.green                                     = "#58e68e"
-theme.purple					= "#e87be8"
-theme.yellow                                    = "#ecf17e"
-theme.pastGreen                                 = "#89f5b3"
---theme.pastPurple                                = "#ee9dee"
---theme.pastPurple                                = "#efaeef"
-theme.pastPurple                                = "#eda2ed"
+--[[ EVANESCENT COLORS ]]--
 
-theme.mint					= "#acdabd"
-theme.dmint					= "#65a97e"
-theme.lg					= "#d9d9d9"
-theme.navy					= "#43566c"
-theme.lightNavy					= "#7B97B5"
-theme.ln					= "#96B1CF"
-theme.cotton					= "#7AF7F7"
-theme.orange					= "#F3BB72"
-theme.red					= "#ef6464"
-theme.dg					= "#4d4d4d"
-theme.color0					= "#2e3440"
-theme.color1					= "alpha"
-theme.color2					= "#6f5b5a"
-theme.color3					= "#4c566a"
-theme.fg_normal                                 = "#d8dee9"
-theme.fg_focus                                  = theme.mint
-theme.fg_urgent                                 = theme.yellow
-theme.bg_normal                                 = "#1C00ff00"
-theme.bg_focus                                  = theme.pastPurple
-theme.bg_urgent                                 = "alpha"
-theme.taglist_fg_focus                          = theme.pastGreen
-theme.taglist_default				= "#51596b"
-theme.taglist_fg_occupied			= theme.pastPurple
-theme.taglist_shape                             = theme.rounded_bar
-theme.taglist_bg_focus                          = "alpha"
-theme.tasklist_bg_normal                        = "#272e3c"
-theme.tasklist_bg_focus                         = "alpha"
-theme.tasklist_fg_focus                         = "alpha"
-theme.tasklist_shape_border_color_focus         = theme.pastGreen
-theme.tasklist_shape_border_color_urgent        = theme.yellow
-theme.tasklist_shape_border_width_focus         = 2.5
-theme.tasklis_shape_border_width_minimized      = 0
-theme.hotkeys_bg                                = theme.gray
-theme.hotkeys_fg                                = theme.lg
-theme.hotkeys_modifiers_fg                      = theme.mint
-theme.hotkeys_font                              = theme.sysFont
-theme.hotkeys_description_font                  = theme.sysFont
-theme.hotkeys_border_color                      = theme.pastPurple
-theme.menu_bg_focus                             = theme.ln
-theme.menu_fg_focus                             = theme.mint
-theme.menu_bg_normal                            = theme.gray
-theme.menu_fg_normal                            = theme.lg
-theme.border_width                              = 2
-theme.border_normal                             = theme.gray
-theme.border_focus                              = theme.pastGreen
-theme.border_marked                             = theme.yellow
-theme.titlebar_bg_focus                         = "#3F3F3F"
-theme.titlebar_bg_normal                        = "#3F3F3F"
-theme.titlebar_bg_focus                         = theme.bg_focus
-theme.titlebar_bg_normal                        = theme.bg_normal
-theme.titlebar_fg_focus                         = theme.fg_focus
-theme.menu_height                               = 20
-theme.menu_width                                = 140
-theme.notification_bg				= theme.gray
-theme.notification_fg				= theme.lg
-theme.notification_border_color			= theme.mint
-theme.notification_font				= theme.sysFont
-theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
-theme.awesome_icon                              = theme.dir .. "/icons/awesome.png"
-theme.taglist_squares_sel                       = theme.dir .. "/icons/emptySquareSel.png"
-theme.taglist_squares_unsel                     = theme.dir .. "/icons/emptySquareUnsel.png"
-theme.layout_fairv                              = theme.dir .. "/icons/fairv.png"
-theme.layout_fairh                              = theme.dir .. "/icons/fairh.png"
-theme.layout_spiral                             = theme.dir .. "/icons/spiral.png"
-theme.layout_dwindle                            = theme.dir .. "/icons/dwindle.png"
-theme.layout_max                                = theme.dir .. "/icons/max.png"
-theme.layout_fullscreen                         = theme.dir .. "/icons/fullscreen.png"
-theme.layout_magnifier                          = theme.dir .. "/icons/magnifier.png"
-theme.layout_floating                           = theme.dir .. "/icons/floating.png"
-theme.widget_ac                                 = theme.dir .. "/icons/ac.png"
-theme.widget_battery                            = theme.dir .. "/icons/battery.png"
-theme.widget_battery_low                        = theme.dir .. "/icons/battery_low.png"
-theme.widget_battery_empty                      = theme.dir .. "/icons/battery_empty.png"
-theme.widget_mem                                = theme.dir .. "/icons/mem.png"
-theme.widget_cpu                                = theme.dir .. "/icons/cpu.png"
-theme.widget_temp                               = theme.dir .. "/icons/temp.png"
-theme.widget_net                                = theme.dir .. "/icons/net.png"
-theme.widget_hdd                                = theme.dir .. "/icons/hdd.png"
-theme.widget_music                              = theme.dir .. "/icons/note.png"
-theme.widget_music_on                           = theme.dir .. "/icons/note.png"
-theme.widget_music_pause                        = theme.dir .. "/icons/pause.png"
-theme.widget_music_stop                         = theme.dir .. "/icons/stop.png"
-theme.widget_vol                                = theme.dir .. "/icons/vol.png"
-theme.widget_vol_low                            = theme.dir .. "/icons/vol_low.png"
-theme.widget_vol_no                             = theme.dir .. "/icons/vol_no.png"
-theme.widget_vol_mute                           = theme.dir .. "/icons/vol_mute.png"
-theme.widget_mail                               = theme.dir .. "/icons/mail.png"
-theme.widget_mail_on                            = theme.dir .. "/icons/mail_on.png"
-theme.widget_task                               = theme.dir .. "/icons/task.png"
-theme.widget_scissors                           = theme.dir .. "/icons/scissors.png"
-theme.widget_weather                            = theme.dir .. "/icons/dish.png"
-theme.tasklist_plain_task_name                  = true
-theme.tasklist_disable_icon                     = false
-theme.tasklist_disable_task_name                = true
-theme.useless_gap                               = 4
-theme.titlebar_close_button_focus               = theme.dir .. "/icons/titlebar/close_focus.png"
-theme.titlebar_close_button_normal              = theme.dir .. "/icons/titlebar/close_normal.png"
-theme.titlebar_ontop_button_focus_active        = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
-theme.titlebar_ontop_button_normal_active       = theme.dir .. "/icons/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_inactive      = theme.dir .. "/icons/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_inactive     = theme.dir .. "/icons/titlebar/ontop_normal_inactive.png"
-theme.titlebar_sticky_button_focus_active       = theme.dir .. "/icons/titlebar/sticky_focus_active.png"
-theme.titlebar_sticky_button_normal_active      = theme.dir .. "/icons/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_inactive     = theme.dir .. "/icons/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_inactive    = theme.dir .. "/icons/titlebar/sticky_normal_inactive.png"
-theme.titlebar_floating_button_focus_active     = theme.dir .. "/icons/titlebar/floating_focus_active.png"
-theme.titlebar_floating_button_normal_active    = theme.dir .. "/icons/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_inactive   = theme.dir .. "/icons/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_inactive  = theme.dir .. "/icons/titlebar/floating_normal_inactive.png"
-theme.titlebar_maximized_button_focus_active    = theme.dir .. "/icons/titlebar/maximized_focus_active.png"
-theme.titlebar_maximized_button_normal_active   = theme.dir .. "/icons/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_inactive  = theme.dir .. "/icons/titlebar/maximized_focus_inactive.png"
+theme.dark_bg = "#2e333c"
+theme.light_fg = "#c8c8c8"
+theme.light_bg = "#e9e6e9"
+theme.dark_fg = "#5f5f5f"
+
+theme.green_fg = "#acdabd"
+
+theme.blue_fg = "#6182ce"
+
+theme.purple_fg = "#eda2ed"
+theme.white = "#ffffff"
+
+theme.fg_normal = theme.white
+theme.fg_focus = theme.green_fg
+theme.fg_urgent = theme.dark_bg
+theme.bg_normal = "#1C00ff00"
+theme.bg_focus = theme.dark_bg
+theme.bg_urgent = "alpha"
+theme.taglist_fg_focus = theme.green_fg
+theme.taglist_fg_occupied = theme.purple_fg
+theme.taglist_shape = theme.rounded_bar
+theme.taglist_bg_empty = theme.dark_bg
+theme.taglist_bg_occupied = theme.dark_bg
+theme.taglist_bg_focus = "alpha"
+theme.tasklist_bg_normal = "alpha"
+theme.tasklist_bg_focus = "alpha"
+theme.tasklist_fg_normal = theme.light_fg
+theme.tasklist_fg_focus = theme.green_fg
+theme.tasklist_shape_border_color_focus = "alpha"
+theme.tasklist_shape_border_color_urgent = theme.green_fg
+theme.tasklist_shape_border_width_focus = 2.5
+theme.tasklis_shape_border_width_minimized = 0
+theme.hotkeys_bg = theme.dark_bg
+theme.hotkeys_fg = theme.white
+theme.hotkeys_modifiers_fg = theme.green_fg
+theme.hotkeys_font = theme.sysFont
+theme.hotkeys_description_font = theme.sysFont
+theme.hotkeys_border_color = theme.green_fg
+theme.menu_bg_focus = "alpha"
+theme.menu_fg_focus = theme.green_fg
+theme.menu_bg_normal = theme.dark_bg
+theme.menu_fg_normal = theme.dark_bg
+theme.border_width = 2
+theme.border_normal = theme.dark_bg
+theme.border_focus = theme.green_fg
+theme.border_marked = theme.dark_bg
+theme.titlebar_bg_focus = "#3F3F3F"
+theme.titlebar_bg_normal = "#3F3F3F"
+theme.titlebar_bg_focus = theme.bg_focus
+theme.titlebar_bg_normal = theme.bg_normal
+theme.titlebar_fg_focus = theme.fg_focus
+theme.menu_height = 20
+theme.menu_width = 140
+theme.notification_bg = theme.dark_bg
+theme.notification_fg = theme.white
+theme.notification_border_color	= theme.green_fg
+theme.notification_font	= theme.sysFont
+theme.menu_submenu_icon = theme.dir .. "/icons/submenu.png"
+theme.awesome_icon = theme.dir .. "/icons/awesome.png"
+theme.layout_fairv = theme.dir .. "/icons/fairv.png"
+theme.layout_fairh = theme.dir .. "/icons/fairh.png"
+theme.layout_spiral = theme.dir .. "/icons/spiral.png"
+theme.layout_dwindle = theme.dir .. "/icons/dwindle.png"
+theme.layout_max = theme.dir .. "/icons/max.png"
+theme.layout_fullscreen = theme.dir .. "/icons/fullscreen.png"
+theme.layout_magnifier = theme.dir .. "/icons/magnifier.png"
+theme.layout_floating = theme.dir .. "/icons/floating.png"
+theme.widget_ac = theme.dir .. "/icons/ac.png"
+theme.widget_battery = theme.dir .. "/icons/battery.png"
+theme.widget_battery_low = theme.dir .. "/icons/battery_low.png"
+theme.widget_battery_empty = theme.dir .. "/icons/battery_empty.png"
+theme.widget_mem = theme.dir .. "/icons/mem.png"
+theme.widget_cpu = theme.dir .. "/icons/cpu.png"
+theme.widget_temp = theme.dir .. "/icons/temp.png"
+theme.widget_net = theme.dir .. "/icons/net.png"
+theme.widget_hdd = theme.dir .. "/icons/hdd.png"
+theme.widget_music = theme.dir .. "/icons/note.png"
+theme.widget_music_on = theme.dir .. "/icons/note.png"
+theme.widget_music_pause = theme.dir .. "/icons/pause.png"
+theme.widget_music_stop = theme.dir .. "/icons/stop.png"
+theme.widget_vol = theme.dir .. "/icons/vol.png"
+theme.widget_vol_low = theme.dir .. "/icons/vol_low.png"
+theme.widget_vol_no = theme.dir .. "/icons/vol_no.png"
+theme.widget_vol_mute = theme.dir .. "/icons/vol_mute.png"
+theme.widget_mail = theme.dir .. "/icons/mail.png"
+theme.widget_mail_on = theme.dir .. "/icons/mail_on.png"
+theme.widget_task = theme.dir .. "/icons/task.png"
+theme.widget_scissors = theme.dir .. "/icons/scissors.png"
+theme.widget_weather = theme.dir .. "/icons/dish.png"
+theme.tasklist_plain_task_name = true
+theme.tasklist_disable_icon = true
+theme.tasklist_disable_task_name = false
+theme.useless_gap = 4
+theme.titlebar_close_button_focus = theme.dir .. "/icons/titlebar/close_focus.png"
+theme.titlebar_close_button_normal = theme.dir .. "/icons/titlebar/close_normal.png"
+theme.titlebar_ontop_button_focus_active = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_normal_active = theme.dir .. "/icons/titlebar/ontop_normal_active.png"
+theme.titlebar_ontop_button_focus_inactive = theme.dir .. "/icons/titlebar/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_normal_inactive = theme.dir .. "/icons/titlebar/ontop_normal_inactive.png"
+theme.titlebar_sticky_button_focus_active = theme.dir .. "/icons/titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_normal_active = theme.dir .. "/icons/titlebar/sticky_normal_active.png"
+theme.titlebar_sticky_button_focus_inactive = theme.dir .. "/icons/titlebar/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_normal_inactive = theme.dir .. "/icons/titlebar/sticky_normal_inactive.png"
+theme.titlebar_floating_button_focus_active = theme.dir .. "/icons/titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_normal_active = theme.dir .. "/icons/titlebar/floating_normal_active.png"
+theme.titlebar_floating_button_focus_inactive = theme.dir .. "/icons/titlebar/floating_focus_inactive.png"
+theme.titlebar_floating_button_normal_inactive = theme.dir .. "/icons/titlebar/floating_normal_inactive.png"
+theme.titlebar_maximized_button_focus_active = theme.dir .. "/icons/titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_normal_active = theme.dir .. "/icons/titlebar/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_inactive = theme.dir .. "/icons/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/maximized_normal_inactive.png"
 
 local markup = lain.util.markup
 local separators = lain.util.separators
 
+local screen_width = awful.screen.focused().geometry.width
+local screen_height = awful.screen.focused().geometry.height
 
 -- Textclock
 local clock = awful.widget.watch(
     "date +'%a %d %b %R'", 60,
     function(widget, stdout)
-        widget:set_markup(" " .. markup.font(theme.font, stdout))
+        widget:set_markup(" " .. markup.font(theme.font_hack, stdout))
     end
 )
-
-local clockIcon = wibox.widget {
-	text = "",
-	font = theme.font,
-	widget = wibox.widget.textbox
-}
 
 -- Calendar
 theme.cal = lain.widget.cal({
     attach_to = { clock },
     notification_preset = {
-        font = theme.sysFont,
-        fg   = theme.pastPurple,
-        bg   = theme.gray,
+        font = theme.font_hack,
+        fg   = theme.purple_fg,
+        bg   = theme.dark_bg,
     }
 })
 
 -- ALSA volume
 theme.volume = lain.widget.alsabar({
     --togglechannel = "IEC958,3",
-    notification_preset = { font = theme.font, fg = theme.cotton },
+    notification_preset = { font = theme.font, fg = theme.white },
 })
 
 -- MPD
@@ -208,7 +190,7 @@ theme.mpd = lain.widget.mpd({
             artist = " " .. mpd_now.artist .. " "
             title  = mpd_now.title  .. " "
             mpdicon:set_image(theme.widget_music_on)
-            widget:set_markup(markup.font(theme.font, markup(theme.gray, artist) .. " " .. title))
+            widget:set_markup(markup.font(theme.font, markup(theme.lght_bg, artist) .. " " .. title))
         elseif mpd_now.state == "pause" then
             widget:set_markup(markup.font(theme.font, " mpd paused "))
             mpdicon:set_image(theme.widget_music_pause)
@@ -222,42 +204,23 @@ theme.mpd = lain.widget.mpd({
 -- MEM
 local mem = lain.widget.mem({
     settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. mem_now.used .. "MB "))
+        widget:set_markup(markup.font("hack 20", "   " .. mem_now.used .. "MB "))
     end
 })
-
-local memIcon = wibox.widget {
-	text = "",
-	font = theme.font,
-	widget = wibox.widget.textbox
-}
 
 -- CPU
 local cpu = lain.widget.cpu({
     settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. cpu_now.usage .. "% "))
+        widget:set_markup(markup.font("hack 20", "    " .. cpu_now.usage .. "% "))
     end
 })
-
-local cpuIcon = wibox.widget {
-	text = "",
-	font = theme.font,
-	widget = wibox.widget.textbox
-}
 
 -- Coretemp (lain, average)
-local temp = lain.widget.temp({
+local tempr = lain.widget.temp({
     settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. 31.0 .. "°C "))
+        widget:set_markup(markup.font("hack 20", "    " .. coretemp_now .. "°C "))
     end
 })
---]]
-
-local tempIcon = wibox.widget {
-	text="",
-	font = theme.font,
-	widget=wibox.widget.textbox
-}
 
 local weathericon = wibox.widget.imagebox(theme.widget_weather)
 theme.weather = lain.widget.weather({
@@ -268,24 +231,12 @@ theme.weather = lain.widget.weather({
     settings = function()
         descr = weather_now["weather"][1]["description"]:lower()
         units = math.floor(weather_now["main"]["temp"])
-        widget:set_markup(markup.fontfg(theme.font, theme.orange, descr .. " " .. units .. "°F "))
+        widget:set_markup(markup.fontfg(theme.font, theme.white, descr .. " " .. units .. "°F "))
     end
 })
 
-local weatherIcon = wibox.widget {
-	text="",
-	font = theme.font,
-	widget=wibox.widget.textbox
-}
-
 -- Battery
 local baticon = wibox.widget.imagebox(theme.widget_battery)
-
-local batIcon = wibox.widget {
-	text = "",
-	font = "Icomoon 10",
-	widget = wibox.widget.textbox
-}
 
 local bat = lain.widget.bat({
     settings = function()
@@ -301,7 +252,7 @@ local bat = lain.widget.bat({
             else
                 baticon:set_image(theme.widget_battery)
             end
-            widget:set_markup(markup.font(theme.font, " " .. bat_now.perc .. "% "))
+            widget:set_markup(markup.font(theme.font_hack, " " .. bat_now.perc .. "% "))
         else
             widget:set_markup()
             baticon:set_image(theme.widget_ac)
@@ -312,76 +263,52 @@ local bat = lain.widget.bat({
 -- ALSA volume
 theme.volume = lain.widget.alsa({
     settings = function()
-	widget:set_markup(markup.font(theme.font, " " .. volume_now.level .. "% "))
+	widget:set_markup(markup.font("hack 20", "    " .. volume_now.level .. "% "))
     end
 })
 
--- Fixed volume icon
-local volIcon = wibox.widget {
-	text="",
-	font = theme.font,
-	widget = wibox.widget.textbox
-}
-
-
 local bar
 
-occupiedColors = {"#D7822D", "#6ED6A5", "#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D", "#D7822D"}
 
--- Helper function that updates a taglist item
-local update_taglist = function (item, tag, index)
-    if tag.selected then
-        theme.taglist_fg_focus = occupiedColors[index]
-    elseif tag.urgent then
-        theme.taglist_fg_focus = occupiedColors[index]
-    elseif #tag:clients() > 0 then
-        theme.taglist_fg_focus = occupiedColors[index]
-    else
-        item.bg = tag_colors_empty[index]
+local create_rect = function(radius)
+    return function(cr, width, height)
+        gears.shape.rectangle(cr, width, height, radius)
     end
 end
---[[
-awful.screen.connect_for_each_screen(function(s)
-    -- Create a taglist for every screen
-    s.mytaglist = awful.widget.taglist {
-        screen  = s,
-        filter  = awful.widget.taglist.filter.all,
-        buttons = keys.taglist_buttons,
-        layout = {
-            spacing = 10,
-            spacing_widget = {
-                color  = '#00ff00',
-                shape  = gears.shape.circle,
-                widget = wibox.widget.separator,
+
+local function new_widget(boxable_widget, bg, fg, height, width)
+    local box = wibox.container.background()
+    box.bg = bg
+    box.fg = fg
+    box.forced_height = height
+    box.forced_width = width
+
+    local widget_box = wibox.widget {
+        { -- Margins
+            { -- Background color?
+                nil,
+                {
+                    nil,
+                    boxable_widget,
+                    layout = wibox.layout.align.vertical,
+                    expand = "none"
+                },
+                layout = wibox.layout.align.horizontal,
+                expand = "none"
             },
-            layout = wibox.layout.flex.horizontal,
+            widget = box,
         },
-        widget_template = {
-            widget = wibox.container.background,
-            create_callback = function(self, tag, index, _)
-                update_taglist(self, tag, index)
-            end,
-            update_callback = function(self, tag, index, _)
-                update_taglist(self, tag, index)
-            end,
-        }
+        margins = 12,
+        color = "#FF000000",
+        widget = wibox.container.margin
     }
-    ]]--
 
-
-
-local function pl(widget, bgcolor, padding)
---    return wibox.container.background(wibox.container.margin(widget, 16, 16), bgcolor, theme.powerline_rl)
-    return wibox.container.background(wibox.container.margin(widget, 16, 16), bgcolor, gears.shape.rectangle)
+    return widget_box
 end
 
+
+
 function theme.at_screen_connect(s)
-    -- Quake application
-   -- s.quake = lain.util.quake({ app = awful.util.terminal })
-   s.quake = lain.util.quake({ app = "termite", height = 0.50, argname = "--name %s" })
-
-
-
     -- If wallpaper is a function, call it with the screen
     local wallpaper = theme.wallpaper
     if type(wallpaper) == "function" then
@@ -402,61 +329,30 @@ function theme.at_screen_connect(s)
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
-    -- Create a taglist widget
---    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
 
+    -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen = s,
         filter = awful.widget.taglist.filter.all,
         buttons = taglist_buttons,
---	taglist_bg_occupied = theme.cotton,
         layout = {
-            spacing = 1,
---            shape = gears.shape.circle,
+            spacing = 0,
             layout = wibox.layout.fixed.horizontal
         },
     }
 
-    -- Create a taglist for every screen
---[[    s.newtaglist = awful.widget.taglist {
-          screen  = s,
-          filter  = awful.widget.taglist.filter.all,
-          buttons = taglist_buttons,
-          layout = wibox.layout.flex.horizontal,
-          widget_template = {
-              widget = wibox.container.background,
-              create_callback = function(self, tag, index, _)
-                  update_taglist(self, tag, index)
-              end,
-              update_callback = function(self, tag, index, _)
-                  update_taglist(self, tag, index)
-              end,
-          }
-      }]]--
-
     -- Create a tasklist widget
---    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
     s.mytasklist = awful.widget.tasklist {
     screen   = s,
     filter   = awful.widget.tasklist.filter.currenttags,
     buttons  = tasklist_buttons,
     style    = {
         shape_border_width = 1,
-        shape_border_color = '#777777',
-        shape  = gears.shape.rounded_bar,
+        shape_border_color = "alpha",
+        shape  = gears.shape.rectangle,
     },
     layout   = {
         spacing = 15,
-        spacing_widget = {
-            {
-                forced_width = 5,
-                shape        = gears.shape.circle,
-                widget       = wibox.widget.separator
-            },
-            valign = 'center',
-            halign = 'center',
-            widget = wibox.container.place,
-        },
         layout  = wibox.layout.flex.horizontal
     },
     -- Notice that there is *NO* wibox.wibox prefix, it is a template,
@@ -487,306 +383,224 @@ function theme.at_screen_connect(s)
     },
 }
 
-    -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 24, bg = theme.gray, fg = theme.fg_normal, shape = gears.shape.rectangle })
+    -- Create the dashboard wibox
+    dashwibox = awful.wibox({
+--        x = awful.screen.focused().geometry.x,
+--        y = awful.screen.focused().geometry.y,
+        x = 100,
+        y = 100,
+        screen = screen.primary,
+        visible = false,
+        ontop = true,
+        type = "dock",
+        bg = "alpha",
+        height = screen_height,
+        width = screen_width
+    })
 
-    --[[s.topwibox = awful.wibar({ position = "top", screen = s, height = 5, bg = "alpha", visible = true })
-    awful.placement.maximize_horizontally(s.topwibox)
+--    awful.placement.maximize(dashwibox)
 
-    s.topwibox:setup {
-	widget = s.newtaglist,
-    }]]--
+    local hour = wibox.widget.textclock("<span foreground='" .. theme.green_fg .."'>%H</span>")
+    hour.font = "Futura Bold 56"
+    hour.align = "center"
+    hour.valign = "center"
 
-    -- Separator
-    local arro = wibox.widget {{
-	layout = wibox.layout.align.horizontal,
-	expand = "none",
-	{
-	    {
-		layout = wibox.layout.fixed.horizontal,
-		spacing = 2,
-	    },
-	    left = 4,
-	    right = 5,
-	    widget = wibox.container.margin,
-    	    },
-	},
-	shape = gears.shape.powerline,
-	bg = theme.lg,
-	widget = wibox.container.background,
+    local minute = wibox.widget.textclock("<span foreground='" .. theme.purple_fg .."'>:%M</span>")
+    minute.font = "Futura 56"
+    minute.align = "center"
+    minute.valign = "center"
+
+    local apps = wibox.widget {
+        text = "                 ",
+        font = "Icomoon 20",
+        widget = wibox.widget.textbox
     }
 
-    local superSpacer = wibox.widget {{
-        layout = wibox.layout.align.horizontal,
-        expand = "none",
-        {
-            {
-                layout = wibox.layout.fixed.horizontal,
-                spacing = 5,
-            },
-            left = 835,
-            widget = wibox.container.margin,
-            },
-        },
-        shape = gears.shape.rectangle,
-        bg = "alpha",
-        widget = wibox.container.background,
+    local locations = wibox.widget {
+        text = "documents\ndownloads\npictures\nwallpapers\nresearch\n.config",
+        font = "Futura 24",
+        align = "center",
+        widget = wibox.widget.textbox
     }
 
-    local tasklist = wibox.widget {{
-        layout = wibox.layout.align.horizontal,
-        expand = "none",
-        {
-            {
-                layout = wibox.layout.fixed.horizontal,
-                spacing = 2,
-                s.mytasklist,
-            },
-            left = 5,
-            right = 5,
-            widget = wibox.container.margin,
-            },
-        },
-        shape = gears.shape.rounded_bar,
-        bg = "alpha",
-        widget = wibox.container.background,
+    local sys_ctrl = wibox.widget {
+        text = "       ",
+        font = "Icomoon 20",
+        widget = wibox.widget.textbox
     }
 
+    local month = awful.widget.watch(
+        "date +'%b'", "60",
+        function(widget, stdout)
+            widget:set_markup(" " .. markup.font("Futura 52", stdout))
+        end
+    )
 
-    local clock = wibox.widget {{
-        layout = wibox.layout.align.horizontal,
-        expand = "none",
-        {
-            {
-                layout = wibox.layout.fixed.horizontal,
-                spacing = 5,
-                clockIcon,
-		clock,
-            },
-            left = 5,
-            right = 5,
-            widget = wibox.container.margin,
-            },
-        },
-        shape = gears.shape.rounded_bar,
-        bg = "alpha",
-	fg = theme.pastPurple,
-        widget = wibox.container.background,
+    local day = awful.widget.watch(
+        "date +'%d'", "60",
+        function(widget, stdout)
+            widget:set_markup(" " .. markup.font("Futura 52", stdout))
+        end
+    )
+
+    local date = wibox.widget {
+        month,
+        day,
+        layout = wibox.layout.fixed.vertical
     }
 
-    local taglist = wibox.widget {{
-        layout = wibox.layout.align.horizontal,
-        expand = "none",
-        {
-            {
-                layout = wibox.layout.fixed.horizontal,
-                s.mytaglist,
-            },
-            left = 5,
-            right = 5,
-            widget = wibox.container.margin,
-            },
-        },
-        bg = "alpha",
-	fg = theme.taglist_default,
-        widget = wibox.container.background,
+    local time = wibox.widget {
+        hour,
+        minute,
+        layout = wibox.layout.fixed.vertical
     }
 
     local spacer = wibox.widget {{
-	layout = wibox.layout.align.horizontal,
-	expand = "none",
-	{
-	    {
-		layout = wibox.layout.fixed.horizontal,
-	    },
-	    left = 3,
-	    right = 3,
-	    widget = wibox.container.margin,
-    	    },
-	},
-	shape = gears.shape.rectangle,
-	bg = "alpha",
-	widget = wibox.container.background,
-    }
-
-    local weather = wibox.widget {{
         layout = wibox.layout.align.horizontal,
         expand = "none",
         {
             {
                 layout = wibox.layout.fixed.horizontal,
-                spacing = 5,
-                weatherIcon,
-                theme.weather.widget,
             },
-            left = 5,
-            right = 5,
             widget = wibox.container.margin,
             },
         },
         shape = gears.shape.rectangle,
         bg = "alpha",
-	fg = theme.orange,
-        widget = wibox.container.background
-    }
-
-    local temp = wibox.widget {{
-        layout = wibox.layout.align.horizontal,
-        expand = "none",
-        {
-            {
-                layout = wibox.layout.fixed.horizontal,
-                spacing = 5,
-                tempIcon,
-                temp.widget,
-            },
-            left = 5,
-            right = 5,
-            widget = wibox.container.margin,
-            },
-        },
-        shape = gears.shape.rectangle,
-        bg = "alpha",
-	fg = theme.red,
-        widget = wibox.container.background
-    }
-
-    local cpu = wibox.widget {{
-        layout = wibox.layout.align.horizontal,
-        expand = "none",
-        {
-            {
-                layout = wibox.layout.fixed.horizontal,
-                spacing = 5,
-                cpuIcon,
-                cpu.widget,
-            },
-            left = 5,
-            right = 5,
-            widget = wibox.container.margin,
-            },
-        },
-        shape = gears.shape.rectangle,
-        bg = "alpha",
-	fg = theme.pastGreen,
-        widget = wibox.container.background
-    }
-
-    local ram = wibox.widget {{
-        layout = wibox.layout.align.horizontal,
-        expand = "none",
-        {
-            {
-                layout = wibox.layout.fixed.horizontal,
-                spacing = 5,
-                memIcon,
-                mem.widget,
-            },
-            left = 5,
-            right = 5,
-            widget = wibox.container.margin,
-            },
-        },
-        shape = gears.shape.rectangle,
-        bg = "#alpha",
-	fg = theme.yellow,
-	widget = wibox.container.background
-    }
-
-    local music = wibox.widget {{
-        layout = wibox.layout.align.horizontal,
-        expand = "none",
-        {
-            {
-                layout = wibox.layout.fixed.horizontal,
-                spacing = 5,
-                mpdicon,
-                theme.mpd.widget,
-            },
-            left = 5,
-            right = 5,
-            widget = wibox.container.margin,
-            },
-        },
-        shape = gears.shape.rounded_bar,
-        bg = theme.color0,
-        widget = wibox.container.background
-    }
-
-    local volume = wibox.widget {{
-        layout = wibox.layout.align.horizontal,
-        expand = "none",
-        {
-            {
-                layout = wibox.layout.fixed.horizontal,
-                spacing = 5,
-                volIcon,
-                theme.volume.widget,
-            },
-            left = 5,
-            right = 5,
-            widget= wibox.container.margin,
-        },
-        },
-        shape = gears.shape.rectangle,
-	bg = "alpha",
-	fg = theme.lightBlue,
         widget = wibox.container.background,
     }
 
-    local battery = wibox.widget {{
-	layout = wibox.layout.align.horizontal,
-	expand = "none",
-	{
-	    {
-		layout = wibox.layout.fixed.horizontal,
-		spacing = 5,
-		batIcon,
-		bat,
-	    },
-	    left = 5,
-	    right = 5,
-	    widget = wibox.container.margin,
-	},
-	},
-	shape = gears.shape.rectangle,
-        bg = "alpha",
-	fg = theme.mint,
-	widget = wibox.container.background,
+    local processor = wibox.widget {
+        text = "CPU",
+        font = "Futura Bold 64",
+        opacity = .2,
+        align = "center",
+        valign = "center",
+        widget = wibox.widget.textbox
     }
 
-    -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            s.mypromptbox,
-	    taglist,
-        },
-	{
-            layout = wibox.layout.fixed.horizontal,
-            spacing = theme.wibar_spacing,
-            superSpacer,
---            s.mytasklist,
-            tasklist,
-	},
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
---            wibox.widget.systray(),
-            volume,
-            spacer,
-            ram,
-            spacer,
-            cpu,
-            spacer,
-            temp,
-            spacer,
-            clock,
-            spacer,
-	    battery,
---            s.mylayoutbox,
-        },
+    local ram = wibox.widget {
+        text = "RAM",
+        font = "Futura Bold 64",
+        opacity = .2,
+        align = "center",
+        valign = "center",
+        widget = wibox.widget.textbox
     }
+
+    local temp = wibox.widget {
+        text = "TEMP",
+        font = "Futura Bold 64",
+        opacity = .2,
+        align = "center",
+        valign = "center",
+        widget = wibox.widget.textbox
+    }
+
+    local vol = wibox.widget {
+        text = "VOL",
+        font = "Futura Bold 64",
+        opacity = .2,
+        align = "center",
+        valign = "center",
+        widget = wibox.widget.textbox
+    }
+
+    local memory = wibox.widget {
+        ram,
+        mem,
+        layout = wibox.layout.stack
+    }
+
+    local chip = wibox.widget {
+        processor,
+        cpu,
+        align = "center",
+        valign = "center",
+        layout = wibox.layout.stack
+    }
+
+    local temperature = wibox.widget {
+        temp,
+        tempr,
+        layout = wibox.layout.stack
+    }
+
+    local taglist = wibox.widget {
+        s.mytaglist,
+        layout = wibox.layout.fixed.vertical
+    }
+
+    local volume = wibox.widget {
+        vol,
+        theme.volume.widget,
+        layout = wibox.layout.stack
+    }
+
+    local taglist_box = new_widget(taglist, theme.dark_bg, theme.dark_fg, 100, screen_width / 5)
+    local apps_box = new_widget(apps, theme.dark_bg, theme.green_fg, 128, screen_width / 5)
+    local tiempo_box = new_widget(time, theme.dark_bg, theme.green_fg, 250, screen_width / 10)
+    local date_box = new_widget(date, theme.dark_bg, theme.green_fg, 250, screen_width / 10)
+    local ram_box = new_widget(memory, theme.dark_bg, theme.purple_fg, 113, screen_width / 10)
+    local cpu_box = new_widget(chip, theme.dark_bg, theme.green_fg, 100, screen_width / 10)
+    local temp_box = new_widget(temperature, theme.dark_bg, theme.green_fg, 113, screen_width / 10)
+    local vol_box = new_widget(volume, theme.dark_bg, theme.purple_fg, 128, screen_width / 10)
+    local locations_box = new_widget(locations, theme.dark_bg, theme.green_fg, 374, screen_width / 10)
+    local horizontal_spacer_box = new_widget(spacer, "alpha", "alpha", 10, screen_width / 4)
+    local vertical_spacer_box = new_widget(spacer, "alpha", "alpha", screen_height / 4, 10)
+    local sys_ctrl_box = new_widget(sys_ctrl, theme.dark_bg, theme.purple_fg, 128, screen_width / 10)
+
+    dashwibox:setup {
+        {
+            horizontal_spacer_box,
+            layout = wibox.layout.fixed.vertical,
+        },
+        {
+            vertical_spacer_box,
+            locations_box,
+            sys_ctrl_box,
+            layout = wibox.layout.fixed.vertical,
+        },
+        {
+            vertical_spacer_box,
+            taglist_box,
+            {
+                tiempo_box,
+                date_box,
+                layout = wibox.layout.fixed.horizontal,
+            },
+            apps_box,
+            layout = wibox.layout.fixed.vertical,
+        },
+        {
+            vertical_spacer_box,
+            cpu_box,
+            ram_box,
+            temp_box,
+            vol_box,
+            layout = wibox.layout.fixed.vertical,
+        },
+        expand = "none",
+        layout = wibox.layout.fixed.horizontal,
+        widget = wibox.container.background
+    }
+end
+
+function dashboard_hide()
+    awful.keygrabber.stop(dashboard_grabber)
+    dashwibox.visible = false
+end
+
+function dashboard_show()
+    dashboard_grabber = awful.keygrabber.run(
+                            function(_, key, event)
+            if event == 'release' then return end
+
+            if key == "Tab" or "esc" then
+                dashboard_hide()
+            end
+        end)
+    dashwibox.visible = true
 end
 
 return theme

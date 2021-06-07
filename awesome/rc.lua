@@ -57,11 +57,12 @@ local themes = {
     "ethereal",	        -- 1
     "evanescent",       -- 2
     "paradox",          -- 3
-    "fedora"            -- 4
+    "fedora",           -- 4
+    "celestial"         -- 5
 }
 
 -- choose your theme here
-local chosen_theme = themes[4]
+local chosen_theme = themes[2]
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
 
@@ -346,6 +347,12 @@ globalkeys = my_table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
         {description = "show help", group="awesome"}),
 
+    awful.key({ modkey, }, "Tab", function()
+        if dashboard_show then
+            dashboard_show()
+        end
+    end, {description = "show dashboard", group = "awesome"}),
+
     -- Tag browsing with modkey
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
         {description = "view previous", group = "tag"}),
@@ -361,8 +368,8 @@ globalkeys = my_table.join(
         {description = "view previous", group = "tag"}),
 
      -- Tag browsing modkey + tab
-    awful.key({ modkey,           }, "Tab",   awful.tag.viewnext,
-        {description = "view next", group = "tag"}),
+--    awful.key({ modkey,           }, "Tab",   awful.tag.viewnext,
+--        {description = "view next", group = "tag"}),
     awful.key({ modkey, "Shift"   }, "Tab",  awful.tag.viewprev,
         {description = "view previous", group = "tag"}),
 
