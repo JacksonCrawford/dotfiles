@@ -389,7 +389,7 @@ function theme.at_screen_connect(s)
 --        y = awful.screen.focused().geometry.y,
         x = 100,
         y = 100,
-        screen = screen.primary,
+        screen = awful.screen.focused(),
         visible = false,
         ontop = true,
         type = "dock",
@@ -595,6 +595,50 @@ function dashboard_show()
     dashboard_grabber = awful.keygrabber.run(
                             function(_, key, event)
             if event == 'release' then return end
+
+            if key == "b" then
+                awful.spawn("firefox")
+            elseif key == "r" then
+                awful.spawn("firefox https://www.reddit.com/")
+            elseif key == "g" then
+                awful.spawn("firefox https://github.com/")
+            elseif key == "m" then
+                awful.spawn("thunderbird")
+            elseif key == "k" then
+                awful.spawn("kitty")
+            elseif key == "t" then
+                awful.spawn("telegram")
+            elseif key == "s" then
+                awful.spawn("spotify")
+            elseif key == "a" then
+                awful.spawn("apostrophe")
+            elseif key == "f" then
+                awful.spawn("firefox https://docs.fedoraproject.org/en-US/docs/")
+            elseif key == "d" then
+                awful.spawn("thunar Documents")
+            elseif key == "Down" then
+                awful.spawn("thunar Downloads")
+            elseif key == "p" then
+                awful.spawn("thunar Pictures")
+            elseif key == "o" then
+                awful.spawn("thunar ~/Pictures/screenshots")
+            elseif key == "w" then
+                awful.spawn("thunar ~/Pictures/wallpapers")
+            elseif key == "j" then
+                awful.spawn("thunar ~/Documents/research")
+            elseif key == "c" then
+                awful.spawn("thunar ~/.config")
+            elseif key == "1" then
+                awful.spawn.with_shell("systemctl poweroff")
+            elseif key == "2" then
+                awful.spawn.with_shell("systemctl reboot")
+            --[[elseif key == "e" then
+                awesome.quit()]]--
+            elseif key == "n" then
+                awful.spawn.with_shell("redshift -l 00:00")
+            elseif key == "v" then
+                awful.spawn("kitty vtop")
+            end
 
             if key == "Tab" or "esc" then
                 dashboard_hide()
