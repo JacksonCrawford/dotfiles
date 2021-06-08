@@ -26,4 +26,9 @@ This widgets are originally adapted from [Awesome Copycats](https://github.com/l
 
 ## Fonts
 
-I use [Icomoon](https://icomoon.io/) for the taglist and application icons [Hack](https://www.dafont.com/hack.font) is used for the system information in the dashboard. Then [Futura](https://fonts.adobe.com/fonts/futura-pt) is set in theme.lua to be used in the dashboard.
+- [Icomoon](https://icomoon.io/)
+	- Taglist and application icons 
+- [Hack](https://www.dafont.com/hack.font)
+	- System information in the dashboard.
+- [Futura](https://fonts.adobe.com/fonts/futura-pt)
+	- General system font
